@@ -1,13 +1,167 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>BudgetV2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BudgetV2</title>
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    padding:15px;
+    background:#f4f7f6;
+}
+
+h1{
+    color:#1a365d;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.card{
+    background:white;
+    padding:15px;
+    border-radius:8px;
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+.big{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.section{
+    background:white;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:15px;
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+.green{
+    color:green;
+}
+
+.red{
+    color:red;
+}
+
+input{
+    padding:6px;
+    width:120px;
+    margin:4px;
+}
+
+button{
+    padding:8px 12px;
+    cursor:pointer;
+}
+</style>
 </head>
 <body>
-    <h1>BudgetV2 Construction Site</h1>
 
-    <p>If you can read this, GitHub Pages is working.</p>
+<h1>BudgetV2 Dashboard</h1>
 
-    <p>Version 2 coming soon.</p>
+<div class="grid">
+
+    <div class="card">
+        <div>Boo Balance</div>
+        <div class="big green" id="booBal">$1700</div>
+    </div>
+
+    <div class="card">
+        <div>Stephen Balance</div>
+        <div class="big red" id="meBal">-$120</div>
+    </div>
+
+    <div class="card">
+        <div>Combined Cash</div>
+        <div class="big" id="combined">$1580</div>
+    </div>
+
+    <div class="card">
+        <div>Bills Remaining</div>
+        <div class="big">$122</div>
+    </div>
+
+</div>
+
+<div class="section">
+    <h2>Overdue Bills</h2>
+
+    <label>
+        <input type="checkbox">
+        Truist Loan ($159)
+    </label>
+</div>
+
+<div class="section">
+    <h2>Upcoming Bills</h2>
+
+    <ul>
+        <li>Internet - $70</li>
+        <li>Water - $52</li>
+        <li>School Supplies Goal - $1000</li>
+        <li>Power Bill - $300</li>
+        <li>Boo Credit Card - $300</li>
+    </ul>
+</div>
+
+<div class="section">
+    <h2>Goals</h2>
+
+    <p>School Supplies: $0 / $1000</p>
+    <p>Cruise Fund: $0</p>
+    <p>Christmas Fund: $0</p>
+    <p>Emergency Fund: $0</p>
+</div>
+
+<div class="section">
+    <h2>Reconciliation</h2>
+
+    <p>Actual Boo Balance</p>
+    <input id="booInput" value="1700">
+
+    <p>Actual Stephen Balance</p>
+    <input id="meInput" value="-120">
+
+    <br><br>
+
+    <button onclick="updateBalances()">
+        Update Projection
+    </button>
+</div>
+
+<script>
+
+function updateBalances(){
+
+    let boo = parseFloat(
+        document.getElementById('booInput').value
+    ) || 0;
+
+    let me = parseFloat(
+        document.getElementById('meInput').value
+    ) || 0;
+
+    document.getElementById('booBal').innerHTML =
+        '$' + boo.toFixed(2);
+
+    document.getElementById('meBal').innerHTML =
+        '$' + me.toFixed(2);
+
+    document.getElementById('combined').innerHTML =
+        '$' + (boo + me).toFixed(2);
+
+}
+
+</script>
+
 </body>
 </html>
