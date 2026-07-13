@@ -1208,6 +1208,68 @@ calculateForecasts();
 
 </script><script>
 
+if(!budgetData.recurringLoaded){
+
+budgetData.recurringLoaded = true;
+
+const futureItems = [
+
+{date:"2026-08-14",desc:"Stephen Paycheck",amount:1364,account:"me",type:"income",paid:false},
+{date:"2026-08-14",desc:"Transfer To Boo",amount:530,account:"me",type:"transfer",paid:false},
+{date:"2026-08-14",desc:"Personal Allowance",amount:200,account:"me",type:"expense",paid:false},
+
+{date:"2026-08-25",desc:"Water",amount:52,account:"boo",type:"expense",paid:false},
+{date:"2026-08-25",desc:"Rent",amount:2000,account:"boo",type:"expense",paid:false},
+{date:"2026-08-25",desc:"Phone",amount:231,account:"boo",type:"expense",paid:false},
+{date:"2026-08-25",desc:"Boo Paycheck",amount:3000,account:"boo",type:"income",paid:false},
+
+{date:"2026-09-10",desc:"Boo Paycheck",amount:3000,account:"boo",type:"income",paid:false},
+{date:"2026-09-10",desc:"Power Bill",amount:250,account:"boo",type:"expense",paid:false},
+{date:"2026-09-10",desc:"Boo Credit Card",amount:300,account:"boo",type:"expense",paid:false},
+{date:"2026-09-10",desc:"Car Payment",amount:700,account:"boo",type:"expense",paid:false},
+
+{date:"2026-09-11",desc:"Stephen Paycheck",amount:1364,account:"me",type:"income",paid:false},
+{date:"2026-09-11",desc:"Transfer To Boo",amount:530,account:"me",type:"transfer",paid:false},
+{date:"2026-09-11",desc:"Personal Allowance",amount:200,account:"me",type:"expense",paid:false},
+
+{date:"2026-09-15",desc:"Loan",amount:159,account:"me",type:"expense",paid:false},
+
+{date:"2026-09-22",desc:"Internet",amount:70,account:"boo",type:"expense",paid:false},
+{date:"2026-09-25",desc:"Water",amount:52,account:"boo",type:"expense",paid:false},
+{date:"2026-09-25",desc:"Rent",amount:2000,account:"boo",type:"expense",paid:false},
+{date:"2026-09-25",desc:"Phone",amount:231,account:"boo",type:"expense",paid:false},
+{date:"2026-09-25",desc:"Boo Paycheck",amount:3000,account:"boo",type:"income",paid:false}
+
+];
+
+futureItems.forEach(item=>{
+
+budgetData.timeline.push({
+
+id:Date.now() + Math.random(),
+
+date:item.date,
+
+desc:item.desc,
+
+amount:item.amount,
+
+account:item.account,
+
+type:item.type,
+
+paid:false
+
+});
+
+});
+
+saveData();
+
+}
+
+</script><script>
+
 document.getElementById(
 "booActual"
 ).value =
