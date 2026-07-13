@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BudgetV2 Household Forecast</title>
+
+<title>BudgetV2 Beta</title>
 
 <style>
 
@@ -13,6 +17,7 @@
 --primary:#16355c;
 --green:#198754;
 --red:#dc3545;
+--blue:#0d6efd;
 --gold:#d4a017;
 --border:#d8dde3;
 }
@@ -42,7 +47,7 @@ margin-bottom:15px;
 }
 
 .card{
-background:var(--card);
+background:white;
 border-radius:10px;
 padding:15px;
 box-shadow:0 2px 6px rgba(0,0,0,.08);
@@ -52,41 +57,43 @@ box-shadow:0 2px 6px rgba(0,0,0,.08);
 font-size:13px;
 font-weight:bold;
 color:#666;
-margin-bottom:6px;
+margin-bottom:8px;
 }
 
 .card-value{
-font-size:26px;
+font-size:28px;
 font-weight:bold;
 }
 
 .green{
-color:var(--green);
+color:#198754;
 }
 
 .red{
-color:var(--red);
+color:#dc3545;
+}
+
+.blue{
+color:#0d6efd;
+}
+
+.gold{
+color:#d4a017;
 }
 
 .section{
 background:white;
-margin-top:15px;
 padding:15px;
+margin-top:15px;
 border-radius:10px;
 box-shadow:0 2px 6px rgba(0,0,0,.08);
 }
 
-button{
-background:var(--primary);
-color:white;
-border:none;
-padding:10px 14px;
-border-radius:6px;
-cursor:pointer;
-}
-
-button:hover{
-opacity:.9;
+.row{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:10px;
 }
 
 input,
@@ -96,11 +103,32 @@ border:1px solid var(--border);
 border-radius:6px;
 }
 
-.row{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:10px;
+button{
+background:#16355c;
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:6px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+opacity:.9;
+}
+
+.month-header{
+background:#16355c;
+color:white;
+padding:10px;
+border-radius:8px;
+margin-top:12px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.month-body{
+padding:8px;
 }
 
 .timeline-item{
@@ -113,8 +141,8 @@ border-bottom:1px solid #eee;
 
 .timeline-left{
 display:flex;
-gap:10px;
 align-items:center;
+gap:10px;
 }
 
 .income{
@@ -137,12 +165,26 @@ color:#d4a017;
 font-weight:bold;
 }
 
-.paid{
-text-decoration:line-through;
-opacity:.6;
+.hidden{
+display:none;
+}
+
+.progress{
+width:100%;
+height:18px;
+background:#eee;
+border-radius:20px;
+overflow:hidden;
+}
+
+.progress-fill{
+height:100%;
+background:#198754;
+width:0%;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -167,33 +209,84 @@ opacity:.6;
 </div>
 
 <div class="card">
-<div class="card-title">Bills Remaining</div>
-<div id="billsRemaining" class="card-value">$0.00</div>
+<div class="card-title">This Month Remaining</div>
+<div id="monthRemaining" class="card-value">$0.00</div>
 </div>
 
 <div class="card">
-<div class="card-title">Safe To Spend</div>
-<div id="safeSpend" class="card-value">$0.00</div>
+<div class="card-title">Year Remaining</div>
+<div id="yearRemaining" class="card-value">$0.00</div>
 </div>
 
 <div class="card">
 <div class="card-title">I Owe Boo</div>
-<div id="oweBooDisplay" class="card-value">$0.00</div>
+<div id="oweBooDisplay" class="card-value blue">$0.00</div>
 </div>
 
-</div><div class="section">
+</div>
+`<div class="section">
+
+<h2>Next 14 Days</h2>
+
+<div id="next14Days">
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>Forecasts</h2>
+
+<div class="dashboard">
+
+<div class="card">
+<div class="card-title">End July</div>
+<div id="julyForecast" class="card-value">$0</div>
+</div>
+
+<div class="card">
+<div class="card-title">End August</div>
+<div id="augForecast" class="card-value">$0</div>
+</div>
+
+<div class="card">
+<div class="card-title">End September</div>
+<div id="sepForecast" class="card-value">$0</div>
+</div>
+
+<div class="card">
+<div class="card-title">End October</div>
+<div id="octForecast" class="card-value">$0</div>
+</div>
+
+<div class="card">
+<div class="card-title">End November</div>
+<div id="novForecast" class="card-value">$0</div>
+</div>
+
+<div class="card">
+<div class="card-title">End December</div>
+<div id="decForecast" class="card-value">$0</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
 
 <h2>Reconciliation</h2>
 
 <div class="row">
 
 <div>
-<label>Boo Actual Balance</label><br>
+<label>Boo Actual</label><br>
 <input id="booActual" type="number" value="1700">
 </div>
 
 <div>
-<label>Stephen Actual Balance</label><br>
+<label>Stephen Actual</label><br>
 <input id="meActual" type="number" value="-120">
 </div>
 
@@ -222,61 +315,45 @@ Update Balances
 </div>
 
 <div>
-<label>Cruise Fund</label><br>
+<label>Cruise Saved</label><br>
 <input id="cruiseSaved" type="number" value="0">
 </div>
 
 <div>
-<label>Christmas Fund</label><br>
+<label>Christmas Saved</label><br>
 <input id="christmasSaved" type="number" value="0">
 </div>
 
 <div>
-<label>Emergency Fund</label><br>
+<label>Emergency Saved</label><br>
 <input id="emergencySaved" type="number" value="0">
 </div>
 
 </div>
 
-<div class="card">
-
-<div class="card-title">
-School Supplies Remaining
-</div>
-
+<div class="progress">
 <div
-id="schoolGoalRemaining"
-class="card-value">
-
-$1000
-
+id="schoolProgress"
+class="progress-fill">
+</div>
 </div>
 
+<br>
+
+<div>
+School Supplies Goal Remaining:
+<span id="schoolRemaining">$1000</span>
 </div>
 
-</div>
+</div><div class="section">
 
-<div class="section">
-
-<h2>Next 14 Days</h2>
-
-<div id="next14Days">
-
-Coming Soon
-
-</div>
-
-</div>
-
-<div class="section">
-
-<h2>Add Expense</h2>
+<h2>Actions</h2>
 
 <div class="row">
 
 <input
 id="expenseDesc"
-placeholder="Description">
+placeholder="Expense Description">
 
 <input
 id="expenseAmount"
@@ -300,598 +377,6 @@ Add Expense
 </button>
 
 </div>
-
-</div>
-
-<script>
-
-let budgetData =
-JSON.parse(
-localStorage.getItem("budgetV2")
-) || {
-
-booBalance:1700,
-
-meBalance:-120,
-
-oweBoo:0,
-
-schoolSaved:0,
-
-cruiseSaved:0,
-
-christmasSaved:0,
-
-emergencySaved:0,
-
-timeline:[]
-};
-
-function saveData(){
-
-localStorage.setItem(
-"budgetV2",
-JSON.stringify(budgetData)
-);
-
-}
-
-function updateBalances(){
-
-budgetData.booBalance =
-parseFloat(
-document.getElementById(
-"booActual"
-).value
-) || 0;
-
-budgetData.meBalance =
-parseFloat(
-document.getElementById(
-"meActual"
-).value
-) || 0;
-
-budgetData.oweBoo =
-parseFloat(
-document.getElementById(
-"oweBoo"
-).value
-) || 0;
-
-budgetData.schoolSaved =
-parseFloat(
-document.getElementById(
-"schoolSaved"
-).value
-) || 0;
-
-budgetData.cruiseSaved =
-parseFloat(
-document.getElementById(
-"cruiseSaved"
-).value
-) || 0;
-
-budgetData.christmasSaved =
-parseFloat(
-document.getElementById(
-"christmasSaved"
-).value
-) || 0;
-
-budgetData.emergencySaved =
-parseFloat(
-document.getElementById(
-"emergencySaved"
-).value
-) || 0;
-
-saveData();
-
-}
-
-</script><script>
-
-if(budgetData.timeline.length === 0){
-
-budgetData.timeline = [
-
-{
-id:1,
-date:"2026-07-15",
-desc:"Loan",
-amount:159,
-account:"me",
-type:"expense",
-paid:false
-},
-
-{
-id:2,
-date:"2026-07-17",
-desc:"Stephen Paycheck",
-amount:1364,
-account:"me",
-type:"income",
-paid:false
-},
-
-{
-id:3,
-date:"2026-07-17",
-desc:"Transfer To Boo",
-amount:830,
-account:"me",
-type:"transfer",
-paid:false
-},
-
-{
-id:4,
-date:"2026-07-20",
-desc:"Cruise Fund Withdrawal",
-amount:800,
-account:"boo",
-type:"goal",
-paid:false
-},
-
-{
-id:5,
-date:"2026-07-22",
-desc:"Internet",
-amount:70,
-account:"boo",
-type:"expense",
-paid:false
-},
-
-{
-id:6,
-date:"2026-07-25",
-desc:"Water",
-amount:52,
-account:"boo",
-type:"expense",
-paid:false
-},
-
-{
-id:7,
-date:"2026-07-25",
-desc:"Boo Paycheck",
-amount:3000,
-account:"boo",
-type:"income",
-paid:false
-},
-
-{
-id:8,
-date:"2026-07-25",
-desc:"Rent",
-amount:2000,
-account:"boo",
-type:"expense",
-paid:false
-},
-
-{
-id:9,
-date:"2026-07-25",
-desc:"Phone",
-amount:231,
-account:"boo",
-type:"expense",
-paid:false
-},
-
-{
-id:10,
-date:"2026-07-31",
-desc:"Stephen Paycheck",
-amount:1364,
-account:"me",
-type:"income",
-paid:false
-},
-
-{
-id:11,
-date:"2026-07-31",
-desc:"Transfer To Boo",
-amount:700,
-account:"me",
-type:"transfer",
-paid:false
-},
-
-{
-id:12,
-date:"2026-07-31",
-desc:"Car Note",
-amount:550,
-account:"me",
-type:"expense",
-paid:false
-},
-
-{
-id:13,
-date:"2026-07-31",
-desc:"Personal Allowance",
-amount:200,
-account:"me",
-type:"expense",
-paid:false
-},
-
-{
-id:14,
-date:"2026-08-05",
-desc:"School Supplies Goal",
-amount:1000,
-account:"boo",
-type:"goal",
-paid:false
-},
-
-{
-id:15,
-date:"2026-08-10",
-desc:"Boo Credit Card",
-amount:300,
-account:"boo",
-type:"expense",
-paid:false
-},
-
-{
-id:16,
-date:"2026-08-10",
-desc:"Power Bill",
-amount:300,
-account:"boo",
-type:"expense",
-paid:false
-},
-
-{
-id:17,
-date:"2026-08-10",
-desc:"Car Payment",
-amount:700,
-account:"boo",
-type:"expense",
-paid:false
-}
-
-];
-
-saveData();
-
-}
-
-function getTypeClass(type){
-
-if(type==="income") return "income";
-
-if(type==="transfer") return "transfer";
-
-if(type==="goal") return "goal";
-
-return "expense";
-
-}
-
-</script><div class="section">
-
-<h2>Full Timeline</h2>
-
-<div id="timelineContainer">
-
-</div>
-
-</div>
-
-<script>
-
-function renderTimeline(){
-
-let container =
-document.getElementById(
-"timelineContainer"
-);
-
-container.innerHTML = "";
-
-let remainingBills = 0;
-
-budgetData.timeline
-.sort((a,b)=>
-new Date(a.date)-new Date(b.date)
-)
-.forEach(item=>{
-
-if(
-item.type !== "income"
-&& !item.paid
-){
-remainingBills += item.amount;
-}
-
-let row =
-document.createElement("div");
-
-row.className =
-"timeline-item " +
-(item.paid ? "paid" : "");
-
-row.innerHTML = `
-
-<div class="timeline-left">
-
-<input
-type="checkbox"
-${item.paid ? "checked" : ""}
-onchange="toggleItem(${item.id})">
-
-<div>
-
-<div>
-${item.date}
-</div>
-
-<div class="${getTypeClass(item.type)}">
-${item.desc}
-</div>
-
-</div>
-
-</div>
-
-<div>
-
-$${item.amount}
-
-</div>
-
-`;
-
-container.appendChild(row);
-
-});
-
-document.getElementById(
-"billsRemaining"
-).innerText =
-"$" +
-remainingBills.toFixed(2);
-
-}
-
-function toggleItem(id){
-
-let item =
-budgetData.timeline.find(
-x => x.id === id
-);
-
-if(!item) return;
-
-item.paid = !item.paid;
-
-if(item.paid){
-
-if(item.type==="income"){
-
-if(item.account==="boo"){
-budgetData.booBalance += item.amount;
-}else{
-budgetData.meBalance += item.amount;
-}
-
-}
-
-else if(item.type==="transfer"){
-
-budgetData.meBalance -= item.amount;
-budgetData.booBalance += item.amount;
-
-}
-
-else{
-
-if(item.account==="boo"){
-budgetData.booBalance -= item.amount;
-}else{
-budgetData.meBalance -= item.amount;
-}
-
-}
-
-}else{
-
-if(item.type==="income"){
-
-if(item.account==="boo"){
-budgetData.booBalance -= item.amount;
-}else{
-budgetData.meBalance -= item.amount;
-}
-
-}
-
-else if(item.type==="transfer"){
-
-budgetData.meBalance += item.amount;
-budgetData.booBalance -= item.amount;
-
-}
-
-else{
-
-if(item.account==="boo"){
-budgetData.booBalance += item.amount;
-}else{
-budgetData.meBalance += item.amount;
-}
-
-}
-
-}
-
-refreshDashboard();
-
-saveData();
-
-}
-
-</script><script>
-
-function refreshDashboard(){
-
-document.getElementById(
-"booBalance"
-).innerText =
-"$" +
-budgetData.booBalance.toFixed(2);
-
-document.getElementById(
-"meBalance"
-).innerText =
-"$" +
-budgetData.meBalance.toFixed(2);
-
-document.getElementById(
-"combinedBalance"
-).innerText =
-"$" +
-(
-budgetData.booBalance +
-budgetData.meBalance
-).toFixed(2);
-
-document.getElementById(
-"oweBooDisplay"
-).innerText =
-"$" +
-budgetData.oweBoo.toFixed(2);
-
-let schoolRemaining =
-1000 -
-budgetData.schoolSaved;
-
-if(schoolRemaining < 0){
-schoolRemaining = 0;
-}
-
-document.getElementById(
-"schoolGoalRemaining"
-).innerText =
-"$" +
-schoolRemaining.toFixed(2);
-
-let safeSpend =
-(
-budgetData.booBalance +
-budgetData.meBalance
-)
--
-budgetData.oweBoo;
-
-document.getElementById(
-"safeSpend"
-).innerText =
-"$" +
-safeSpend.toFixed(2);
-
-buildNext14Days();
-
-renderTimeline();
-
-saveData();
-
-}
-
-function buildNext14Days(){
-
-let container =
-document.getElementById(
-"next14Days"
-);
-
-container.innerHTML = "";
-
-let upcoming =
-budgetData.timeline
-.filter(x => !x.paid)
-.slice(0,10);
-
-let total = 0;
-
-upcoming.forEach(item=>{
-
-if(item.type !== "income"){
-total += item.amount;
-}
-
-let row =
-document.createElement("div");
-
-row.className =
-"timeline-item";
-
-row.innerHTML = `
-
-<div>
-
-${item.date}
-
--
-
-${item.desc}
-
-</div>
-
-<div>
-
-$${item.amount}
-
-</div>
-
-`;
-
-container.appendChild(row);
-
-});
-
-let footer =
-document.createElement("div");
-
-footer.style.marginTop =
-"10px";
-
-footer.style.fontWeight =
-"bold";
-
-footer.innerHTML =
-"Next 14 Day Total: $" +
-total.toFixed(2);
-
-container.appendChild(
-footer
-);
-
-}
-
-refreshDashboard();
-
-</script>
-`<div class="section">
-
-<h2>Actions</h2>
 
 <div class="row">
 
@@ -937,7 +422,598 @@ Transfer To Boo
 
 </div>
 
+<div class="section">
+
+<h2>Timeline</h2>
+
+<div id="timelineContainer">
+
+</div>
+
+</div>
+
 <script>
+
+let budgetData =
+JSON.parse(
+localStorage.getItem(
+"budgetV2Beta"
+)
+) || {
+
+booBalance:1700,
+
+meBalance:-120,
+
+oweBoo:0,
+
+schoolSaved:0,
+
+cruiseSaved:0,
+
+christmasSaved:0,
+
+emergencySaved:0,
+
+timeline:[]
+
+};
+
+function saveData(){
+
+localStorage.setItem(
+"budgetV2Beta",
+JSON.stringify(
+budgetData
+)
+);
+
+}
+
+</script><script>
+
+if(budgetData.timeline.length === 0){
+
+budgetData.timeline = [
+
+{
+id:1,
+month:"July 2026",
+date:"2026-07-15",
+desc:"Loan",
+amount:159,
+account:"me",
+type:"expense",
+paid:false
+},
+
+{
+id:2,
+month:"July 2026",
+date:"2026-07-17",
+desc:"Stephen Paycheck",
+amount:1364,
+account:"me",
+type:"income",
+paid:false
+},
+
+{
+id:3,
+month:"July 2026",
+date:"2026-07-17",
+desc:"Transfer To Boo",
+amount:830,
+account:"me",
+type:"transfer",
+paid:false
+},
+
+{
+id:4,
+month:"July 2026",
+date:"2026-07-22",
+desc:"Internet",
+amount:70,
+account:"boo",
+type:"expense",
+paid:false
+},
+
+{
+id:5,
+month:"July 2026",
+date:"2026-07-25",
+desc:"Water",
+amount:52,
+account:"boo",
+type:"expense",
+paid:false
+},
+
+{
+id:6,
+month:"July 2026",
+date:"2026-07-25",
+desc:"Boo Paycheck",
+amount:3000,
+account:"boo",
+type:"income",
+paid:false
+},
+
+{
+id:7,
+month:"July 2026",
+date:"2026-07-25",
+desc:"Rent",
+amount:2000,
+account:"boo",
+type:"expense",
+paid:false
+},
+
+{
+id:8,
+month:"July 2026",
+date:"2026-07-25",
+desc:"Phone",
+amount:231,
+account:"boo",
+type:"expense",
+paid:false
+},
+
+{
+id:9,
+month:"July 2026",
+date:"2026-07-31",
+desc:"Stephen Paycheck",
+amount:1364,
+account:"me",
+type:"income",
+paid:false
+},
+
+{
+id:10,
+month:"July 2026",
+date:"2026-07-31",
+desc:"Transfer To Boo",
+amount:700,
+account:"me",
+type:"transfer",
+paid:false
+},
+
+{
+id:11,
+month:"July 2026",
+date:"2026-07-31",
+desc:"Car Note",
+amount:550,
+account:"me",
+type:"expense",
+paid:false
+},
+
+{
+id:12,
+month:"July 2026",
+date:"2026-07-31",
+desc:"Personal Allowance",
+amount:200,
+account:"me",
+type:"expense",
+paid:false
+},
+
+{
+id:13,
+month:"August 2026",
+date:"2026-08-05",
+desc:"School Supplies Goal",
+amount:1000,
+account:"boo",
+type:"goal",
+paid:false
+},
+
+{
+id:14,
+month:"August 2026",
+date:"2026-08-10",
+desc:"Boo Paycheck",
+amount:3000,
+account:"boo",
+type:"income",
+paid:false
+},
+
+{
+id:15,
+month:"August 2026",
+date:"2026-08-10",
+desc:"Power Bill",
+amount:300,
+account:"boo",
+type:"expense",
+paid:false
+},
+
+{
+id:16,
+month:"August 2026",
+date:"2026-08-10",
+desc:"Boo Credit Card",
+amount:300,
+account:"boo",
+type:"expense",
+paid:false
+},
+
+{
+id:17,
+month:"August 2026",
+date:"2026-08-10",
+desc:"Car Payment",
+amount:700,
+account:"boo",
+type:"expense",
+paid:false
+}
+
+];
+
+saveData();
+
+}
+
+function getTypeClass(type){
+
+if(type==="income"){
+return "income";
+}
+
+if(type==="transfer"){
+return "transfer";
+}
+
+if(type==="goal"){
+return "goal";
+}
+
+return "expense";
+
+}
+
+</script><script>
+
+function toggleMonth(monthId){
+
+let section =
+document.getElementById(monthId);
+
+section.classList.toggle("hidden");
+
+}
+
+function renderTimeline(){
+
+let container =
+document.getElementById(
+"timelineContainer"
+);
+
+container.innerHTML = "";
+
+let months = {};
+
+budgetData.timeline
+.sort((a,b)=>
+new Date(a.date) -
+new Date(b.date)
+)
+.forEach(item=>{
+
+if(!months[item.month]){
+months[item.month] = [];
+}
+
+months[item.month].push(item);
+
+});
+
+Object.keys(months)
+.forEach((month,index)=>{
+
+let monthId =
+"month_" +
+index;
+
+let header =
+document.createElement("div");
+
+header.className =
+"month-header";
+
+header.innerHTML =
+"▼ " + month;
+
+header.onclick =
+function(){
+
+toggleMonth(monthId);
+
+};
+
+container.appendChild(
+header
+);
+
+let body =
+document.createElement("div");
+
+body.id = monthId;
+
+body.className =
+"month-body";
+
+months[month]
+.forEach(item=>{
+
+let row =
+document.createElement("div");
+
+row.className =
+"timeline-item";
+
+row.innerHTML =
+
+`
+
+<div class="timeline-left">
+
+<input
+type="checkbox"
+${item.paid ? "checked" : ""}
+onchange="toggleItem(${item.id})">
+
+<div>
+
+<div>
+${item.date}
+</div>
+
+<div class="${getTypeClass(item.type)}">
+
+${item.desc}
+
+</div>
+
+</div>
+
+</div>
+
+<div>
+
+$${item.amount}
+
+</div>
+
+`;
+
+body.appendChild(row);
+
+});
+
+container.appendChild(
+body
+);
+
+});
+
+}
+
+function toggleItem(id){
+
+let item =
+budgetData.timeline.find(
+x => x.id === id
+);
+
+if(!item){
+return;
+}
+
+item.paid =
+!item.paid;
+
+saveData();
+
+refreshDashboard();
+
+}
+
+</script><script>
+
+function buildNext14Days(){
+
+let container =
+document.getElementById(
+"next14Days"
+);
+
+container.innerHTML = "";
+
+let total = 0;
+
+let upcoming =
+budgetData.timeline
+.filter(x => !x.paid)
+.slice(0,10);
+
+upcoming.forEach(item=>{
+
+if(item.type !== "income"){
+total += item.amount;
+}
+
+let row =
+document.createElement("div");
+
+row.className =
+"timeline-item";
+
+row.innerHTML = `
+
+<div>
+
+${item.date}
+
+-
+
+${item.desc}
+
+</div>
+
+<div>
+
+$${item.amount}
+
+</div>
+
+`;
+
+container.appendChild(
+row
+);
+
+});
+
+let footer =
+document.createElement("div");
+
+footer.style.fontWeight =
+"bold";
+
+footer.style.marginTop =
+"10px";
+
+footer.innerHTML =
+"Next 14 Days Total: $" +
+total.toFixed(2);
+
+container.appendChild(
+footer
+);
+
+}
+
+function refreshDashboard(){
+
+document.getElementById(
+"booBalance"
+).innerText =
+"$" +
+budgetData.booBalance.toFixed(2);
+
+document.getElementById(
+"meBalance"
+).innerText =
+"$" +
+budgetData.meBalance.toFixed(2);
+
+document.getElementById(
+"combinedBalance"
+).innerText =
+"$" +
+(
+budgetData.booBalance +
+budgetData.meBalance
+).toFixed(2);
+
+document.getElementById(
+"oweBooDisplay"
+).innerText =
+"$" +
+budgetData.oweBoo.toFixed(2);
+
+let schoolRemaining =
+1000 -
+budgetData.schoolSaved;
+
+if(schoolRemaining < 0){
+schoolRemaining = 0;
+}
+
+document.getElementById(
+"schoolRemaining"
+).innerText =
+"$" +
+schoolRemaining.toFixed(2);
+
+let progress =
+(
+budgetData.schoolSaved /
+1000
+) * 100;
+
+if(progress > 100){
+progress = 100;
+}
+
+document.getElementById(
+"schoolProgress"
+).style.width =
+progress + "%";
+
+let monthRemaining = 0;
+let yearRemaining = 0;
+
+budgetData.timeline
+.forEach(item=>{
+
+if(
+!item.paid &&
+item.type !== "income"
+){
+
+yearRemaining += item.amount;
+
+if(
+item.month === "July 2026"
+){
+
+monthRemaining += item.amount;
+
+}
+
+}
+
+});
+
+document.getElementById(
+"monthRemaining"
+).innerText =
+"$" +
+monthRemaining.toFixed(2);
+
+document.getElementById(
+"yearRemaining"
+).innerText =
+"$" +
+yearRemaining.toFixed(2);
+
+renderTimeline();
+
+buildNext14Days();
+
+saveData();
+
+}
+
+</script><script>
 
 function addExpense(){
 
@@ -965,6 +1041,8 @@ return;
 budgetData.timeline.push({
 
 id:Date.now(),
+
+month:"Manual Entries",
 
 date:new Date()
 .toISOString()
@@ -1027,6 +1105,8 @@ budgetData.timeline.push({
 
 id:Date.now(),
 
+month:"Manual Entries",
+
 date:new Date()
 .toISOString()
 .slice(0,10),
@@ -1078,6 +1158,8 @@ budgetData.timeline.push({
 
 id:Date.now(),
 
+month:"Manual Entries",
+
 date:new Date()
 .toISOString()
 .slice(0,10),
@@ -1105,32 +1187,7 @@ refreshDashboard();
 
 }
 
-</script><div class="section">
-
-<h2>Forecast Summary</h2>
-
-<div class="dashboard">
-
-<div class="card">
-<div class="card-title">End Of July</div>
-<div id="julyForecast" class="card-value">$0</div>
-</div>
-
-<div class="card">
-<div class="card-title">End Of August</div>
-<div id="augForecast" class="card-value">$0</div>
-</div>
-
-<div class="card">
-<div class="card-title">End Of Year</div>
-<div id="yearForecast" class="card-value">$0</div>
-</div>
-
-</div>
-
-</div>
-
-<script>
+</script><script>
 
 function calculateForecasts(){
 
@@ -1140,133 +1197,168 @@ budgetData.booBalance;
 let me =
 budgetData.meBalance;
 
+let july = boo + me;
+let august = boo + me;
+let september = boo + me;
+let october = boo + me;
+let november = boo + me;
+let december = boo + me;
+
 budgetData.timeline
 .filter(x => !x.paid)
 .forEach(item=>{
 
-if(item.type==="income"){
+let impact = item.amount;
 
-if(item.account==="boo"){
-boo += item.amount;
-}else{
-me += item.amount;
-}
+if(item.type === "income"){
+
+impact = impact;
 
 }
-else if(item.type==="transfer"){
+else if(item.type === "transfer"){
 
-me -= item.amount;
-boo += item.amount;
+impact = 0;
 
 }
 else{
 
-if(item.account==="boo"){
-boo -= item.amount;
-}else{
-me -= item.amount;
+impact = -impact;
+
 }
+
+if(item.date.startsWith("2026-07")){
+
+july += impact;
+august += impact;
+september += impact;
+october += impact;
+november += impact;
+december += impact;
+
+}
+
+else if(item.date.startsWith("2026-08")){
+
+august += impact;
+september += impact;
+october += impact;
+november += impact;
+december += impact;
+
+}
+
+else if(item.date.startsWith("2026-09")){
+
+september += impact;
+october += impact;
+november += impact;
+december += impact;
 
 }
 
 });
 
-let projected =
-boo + me;
-
-document.getElementById(
-"yearForecast"
-).innerText =
-"$" +
-projected.toFixed(2);
-
 document.getElementById(
 "julyForecast"
 ).innerText =
-"$" +
-projected.toFixed(2);
+"$" + july.toFixed(0);
 
 document.getElementById(
 "augForecast"
 ).innerText =
-"$" +
-projected.toFixed(2);
+"$" + august.toFixed(0);
+
+document.getElementById(
+"sepForecast"
+).innerText =
+"$" + september.toFixed(0);
+
+document.getElementById(
+"octForecast"
+).innerText =
+"$" + october.toFixed(0);
+
+document.getElementById(
+"novForecast"
+).innerText =
+"$" + november.toFixed(0);
+
+document.getElementById(
+"decForecast"
+).innerText =
+"$" + december.toFixed(0);
 
 }
 
-const oldRefresh =
+</script><script>
+
+const originalRefresh =
 refreshDashboard;
 
 refreshDashboard =
 function(){
 
-oldRefresh();
+originalRefresh();
 
 calculateForecasts();
 
 };
 
-</script><script>
+updateBalances =
+function(){
 
-if(!budgetData.recurringLoaded){
+budgetData.booBalance =
+parseFloat(
+document.getElementById(
+"booActual"
+).value
+) || 0;
 
-budgetData.recurringLoaded = true;
+budgetData.meBalance =
+parseFloat(
+document.getElementById(
+"meActual"
+).value
+) || 0;
 
-const futureItems = [
+budgetData.oweBoo =
+parseFloat(
+document.getElementById(
+"oweBoo"
+).value
+) || 0;
 
-{date:"2026-08-14",desc:"Stephen Paycheck",amount:1364,account:"me",type:"income",paid:false},
-{date:"2026-08-14",desc:"Transfer To Boo",amount:530,account:"me",type:"transfer",paid:false},
-{date:"2026-08-14",desc:"Personal Allowance",amount:200,account:"me",type:"expense",paid:false},
+budgetData.schoolSaved =
+parseFloat(
+document.getElementById(
+"schoolSaved"
+).value
+) || 0;
 
-{date:"2026-08-25",desc:"Water",amount:52,account:"boo",type:"expense",paid:false},
-{date:"2026-08-25",desc:"Rent",amount:2000,account:"boo",type:"expense",paid:false},
-{date:"2026-08-25",desc:"Phone",amount:231,account:"boo",type:"expense",paid:false},
-{date:"2026-08-25",desc:"Boo Paycheck",amount:3000,account:"boo",type:"income",paid:false},
+budgetData.cruiseSaved =
+parseFloat(
+document.getElementById(
+"cruiseSaved"
+).value
+) || 0;
 
-{date:"2026-09-10",desc:"Boo Paycheck",amount:3000,account:"boo",type:"income",paid:false},
-{date:"2026-09-10",desc:"Power Bill",amount:250,account:"boo",type:"expense",paid:false},
-{date:"2026-09-10",desc:"Boo Credit Card",amount:300,account:"boo",type:"expense",paid:false},
-{date:"2026-09-10",desc:"Car Payment",amount:700,account:"boo",type:"expense",paid:false},
+budgetData.christmasSaved =
+parseFloat(
+document.getElementById(
+"christmasSaved"
+).value
+) || 0;
 
-{date:"2026-09-11",desc:"Stephen Paycheck",amount:1364,account:"me",type:"income",paid:false},
-{date:"2026-09-11",desc:"Transfer To Boo",amount:530,account:"me",type:"transfer",paid:false},
-{date:"2026-09-11",desc:"Personal Allowance",amount:200,account:"me",type:"expense",paid:false},
+budgetData.emergencySaved =
+parseFloat(
+document.getElementById(
+"emergencySaved"
+).value
+) || 0;
 
-{date:"2026-09-15",desc:"Loan",amount:159,account:"me",type:"expense",paid:false},
+refreshDashboard();
 
-{date:"2026-09-22",desc:"Internet",amount:70,account:"boo",type:"expense",paid:false},
-{date:"2026-09-25",desc:"Water",amount:52,account:"boo",type:"expense",paid:false},
-{date:"2026-09-25",desc:"Rent",amount:2000,account:"boo",type:"expense",paid:false},
-{date:"2026-09-25",desc:"Phone",amount:231,account:"boo",type:"expense",paid:false},
-{date:"2026-09-25",desc:"Boo Paycheck",amount:3000,account:"boo",type:"income",paid:false}
-
-];
-
-futureItems.forEach(item=>{
-
-budgetData.timeline.push({
-
-id:Date.now() + Math.random(),
-
-date:item.date,
-
-desc:item.desc,
-
-amount:item.amount,
-
-account:item.account,
-
-type:item.type,
-
-paid:false
-
-});
-
-});
-
-saveData();
-
-}
+};
 
 </script><script>
 
