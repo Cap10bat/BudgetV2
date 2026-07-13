@@ -1859,7 +1859,15 @@ document.getElementById(
 "emergencySaved"
 ).value =
 budgetData.emergencySaved;
+console.log("Timeline Count:", budgetData.timeline.length);
 
+console.log("Timeline Data:", budgetData.timeline);
+
+console.log("renderTimeline exists:", typeof renderTimeline);
+
+console.log("buildNext14Days exists:", typeof buildNext14Days);
+
+console.log("calculateForecasts exists:", typeof calculateForecasts);
 refreshDashboard();
 
 </script>
