@@ -3,163 +3,433 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BudgetV2</title>
+<title>BudgetV2 Stable</title>
 
 <style>
 body{
     font-family:Arial,sans-serif;
     margin:0;
     padding:15px;
-    background:#f4f7f6;
+    background:#f3f5f7;
 }
 
-h1{
-    color:#1a365d;
+h1,h2{
+    color:#16355c;
 }
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
     gap:10px;
-    margin-bottom:15px;
 }
 
 .card{
     background:white;
+    border-radius:10px;
     padding:15px;
-    border-radius:8px;
-    box-shadow:0 2px 5px rgba(0,0,0,.1);
+    box-shadow:0 2px 6px rgba(0,0,0,.12);
 }
 
 .big{
-    font-size:22px;
+    font-size:24px;
     font-weight:bold;
+}
+
+.green{
+    color:#198754;
+}
+
+.red{
+    color:#dc3545;
 }
 
 .section{
     background:white;
+    border-radius:10px;
     padding:15px;
-    border-radius:8px;
-    margin-bottom:15px;
-    box-shadow:0 2px 5px rgba(0,0,0,.1);
+    margin-top:15px;
+    box-shadow:0 2px 6px rgba(0,0,0,.12);
 }
 
-.green{
-    color:green;
+.bill{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:8px;
+    border-bottom:1px solid #eee;
 }
 
-.red{
-    color:red;
-}
-
-input{
-    padding:6px;
-    width:120px;
+input,select{
+    padding:8px;
     margin:4px;
 }
 
 button{
-    padding:8px 12px;
+    padding:10px;
     cursor:pointer;
+}
+
+.timeline-item{
+    padding:8px;
+    border-bottom:1px solid #eee;
+}
+
+.paid{
+    text-decoration:line-through;
+    opacity:.6;
 }
 </style>
 </head>
+
 <body>
 
-<h1>BudgetV2 Dashboard</h1>
+<h1>BudgetV2</h1>
 
 <div class="grid">
 
-    <div class="card">
-        <div>Boo Balance</div>
-        <div class="big green" id="booBal">$1700</div>
-    </div>
+<div class="card">
+<div>Boo Balance</div>
+<div class="big green" id="booBalance">$1700.00</div>
+</div>
 
-    <div class="card">
-        <div>Stephen Balance</div>
-        <div class="big red" id="meBal">-$120</div>
-    </div>
+<div class="card">
+<div>Stephen Balance</div>
+<div class="big red" id="meBalance">-$120.00</div>
+</div>
 
-    <div class="card">
-        <div>Combined Cash</div>
-        <div class="big" id="combined">$1580</div>
-    </div>
+<div class="card">
+<div>Combined Cash</div>
+<div class="big" id="combinedBalance">$1580.00</div>
+</div>
 
-    <div class="card">
-        <div>Bills Remaining</div>
-        <div class="big">$122</div>
-    </div>
+<div class="card">
+<div>Bills Remaining</div>
+<div class="big" id="remainingBills">$0.00</div>
+</div>
 
 </div>
 
 <div class="section">
-    <h2>Overdue Bills</h2>
-
-    <label>
-        <input type="checkbox">
-        Truist Loan ($159)
-    </label>
+<h2>Upcoming Timeline</h2>
+<div id="timeline"></div>
 </div>
 
 <div class="section">
-    <h2>Upcoming Bills</h2>
+<h2>Add Expense</h2>
 
-    <ul>
-        <li>Internet - $70</li>
-        <li>Water - $52</li>
-        <li>School Supplies Goal - $1000</li>
-        <li>Power Bill - $300</li>
-        <li>Boo Credit Card - $300</li>
-    </ul>
+<input id="expDesc" placeholder="Description">
+
+<input id="expAmount" type="number" placeholder="Amount">
+
+<select id="expAccount">
+<option value="boo">Boo</option>
+<option value="me">Stephen</option>
+</select>
+
+<button onclick="addExpense()">Add Expense</button>
+
 </div>
 
 <div class="section">
-    <h2>Goals</h2>
 
-    <p>School Supplies: $0 / $1000</p>
-    <p>Cruise Fund: $0</p>
-    <p>Christmas Fund: $0</p>
-    <p>Emergency Fund: $0</p>
+<h2>Reconciliation</h2>
+
+<label>Boo Actual Balance</label><br>
+<input id="reconBoo" type="number" value="1700">
+
+<br>
+
+<label>Stephen Actual Balance</label><br>
+<input id="reconMe" type="number" value="-120">
+
+<br><br>
+
+<button onclick="reconcile()">
+Update Balances
+</button>
+
 </div>
 
 <div class="section">
-    <h2>Reconciliation</h2>
 
-    <p>Actual Boo Balance</p>
-    <input id="booInput" value="1700">
+<h2>Goals</h2>
 
-    <p>Actual Stephen Balance</p>
-    <input id="meInput" value="-120">
+<div>School Supplies: $0 / $1000</div>
+<div>Cruise Fund: $0</div>
+<div>Christmas Fund: $0</div>
+<div>Emergency Fund: $0</div>
 
-    <br><br>
-
-    <button onclick="updateBalances()">
-        Update Projection
-    </button>
 </div>
 
 <script>
 
-function updateBalances(){
+let booBalance =
+parseFloat(localStorage.getItem('booBalance')) || 1700;
 
-    let boo = parseFloat(
-        document.getElementById('booInput').value
-    ) || 0;
+let meBalance =
+parseFloat(localStorage.getItem('meBalance')) || -120;
 
-    let me = parseFloat(
-        document.getElementById('meInput').value
-    ) || 0;
+let bills =
+JSON.parse(localStorage.getItem('bills')) || [
 
-    document.getElementById('booBal').innerHTML =
-        '$' + boo.toFixed(2);
+{
+id:1,
+date:'Jul 15',
+name:'Truist Loan',
+amount:159,
+acct:'me',
+paid:false
+},
 
-    document.getElementById('meBal').innerHTML =
-        '$' + me.toFixed(2);
+{
+id:2,
+date:'Jul 22',
+name:'Internet',
+amount:70,
+acct:'boo',
+paid:false
+},
 
-    document.getElementById('combined').innerHTML =
-        '$' + (boo + me).toFixed(2);
+{
+id:3,
+date:'Jul 25',
+name:'Water',
+amount:52,
+acct:'boo',
+paid:false
+},
+
+{
+id:4,
+date:'Aug 05',
+name:'School Supplies',
+amount:1000,
+acct:'boo',
+paid:false
+},
+
+{
+id:5,
+date:'Aug 10',
+name:'Power Bill',
+amount:300,
+acct:'boo',
+paid:false
+},
+
+{
+id:6,
+date:'Aug 10',
+name:'Boo Credit Card',
+amount:300,
+acct:'boo',
+paid:false
+},
+
+{
+id:7,
+date:'Aug 10',
+name:'Car Payment',
+amount:700,
+acct:'boo',
+paid:false
+}
+];
+
+function saveEverything(){
+
+localStorage.setItem(
+'booBalance',
+booBalance
+);
+
+localStorage.setItem(
+'meBalance',
+meBalance
+);
+
+localStorage.setItem(
+'bills',
+JSON.stringify(bills)
+);
 
 }
+
+function render(){
+
+let timeline =
+document.getElementById('timeline');
+
+timeline.innerHTML='';
+
+let remaining = 0;
+
+bills.forEach(b=>{
+
+if(!b.paid){
+remaining += b.amount;
+}
+
+let div =
+document.createElement('div');
+
+div.className =
+'timeline-item ' +
+(b.paid ? 'paid':'');
+
+div.innerHTML = `
+<label>
+<input
+type="checkbox"
+${b.paid?'checked':''}
+onchange="toggleBill(${b.id})">
+
+${b.date}
+-
+${b.name}
+-
+$${b.amount}
+</label>
+`;
+
+timeline.appendChild(div);
+
+});
+
+document.getElementById(
+'booBalance'
+).innerHTML =
+'$' + booBalance.toFixed(2);
+
+document.getElementById(
+'meBalance'
+).innerHTML =
+'$' + meBalance.toFixed(2);
+
+document.getElementById(
+'combinedBalance'
+).innerHTML =
+'$' + (booBalance + meBalance).toFixed(2);
+
+document.getElementById(
+'remainingBills'
+).innerHTML =
+'$' + remaining.toFixed(2);
+
+saveEverything();
+
+}
+
+function toggleBill(id){
+
+let bill =
+bills.find(
+x=>x.id===id
+);
+
+if(!bill)return;
+
+bill.paid =
+!bill.paid;
+
+if(bill.paid){
+
+if(bill.acct==='boo'){
+booBalance -= bill.amount;
+}else{
+meBalance -= bill.amount;
+}
+
+}else{
+
+if(bill.acct==='boo'){
+booBalance += bill.amount;
+}else{
+meBalance += bill.amount;
+}
+
+}
+
+render();
+
+}
+
+function addExpense(){
+
+let desc =
+document.getElementById(
+'expDesc'
+).value;
+
+let amt =
+parseFloat(
+document.getElementById(
+'expAmount'
+).value
+);
+
+let acct =
+document.getElementById(
+'expAccount'
+).value;
+
+if(!desc || !amt)return;
+
+bills.push({
+
+id:Date.now(),
+
+date:'Manual',
+
+name:desc,
+
+amount:amt,
+
+acct:acct,
+
+paid:true
+
+});
+
+if(acct==='boo'){
+booBalance -= amt;
+}else{
+meBalance -= amt;
+}
+
+document.getElementById(
+'expDesc'
+).value='';
+
+document.getElementById(
+'expAmount'
+).value='';
+
+render();
+
+}
+
+function reconcile(){
+
+booBalance =
+parseFloat(
+document.getElementById(
+'reconBoo'
+).value
+) || 0;
+
+meBalance =
+parseFloat(
+document.getElementById(
+'reconMe'
+).value
+) || 0;
+
+render();
+
+}
+
+render();
 
 </script>
 
