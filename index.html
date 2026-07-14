@@ -1413,12 +1413,12 @@ monthRemaining += Number(item.amount || 0);
 document.getElementById(
 "monthRemaining"
 ).innerText =
-"TEST";
+;
 
 document.getElementById(
 "yearRemaining"
 ).innerText =
-"TEST";
+;
   
 document.getElementById(
 "monthRemaining"
@@ -1723,18 +1723,17 @@ refreshDashboard;
 refreshDashboard =
 function(){
 
+    originalRefresh();
 
+    renderTimeline();
 
-renderTimeline();
+    buildNext14Days();
 
-buildNext14Days();
+    calculateForecasts();
 
-calculateForecasts();
-
-saveData();
+    saveData();
 
 };
-
 updateBalances =
 function(){
 
