@@ -1274,16 +1274,12 @@ budgetData.timeline.find(
 x => x.id === id
 );
 
-if(!item){
-return;
-}
-
 item.paid =
 !item.paid;
 
 saveData();
 
-// refreshDashboard();
+refreshDashboard();
 
 }
 
