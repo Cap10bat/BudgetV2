@@ -1244,12 +1244,36 @@ document.createElement("div");
 row.className =
 "timeline-item";
 
-row.innerText =
-item.date +
-" - " +
-item.desc +
-" - $" +
-item.amount;
+row.innerHTML = `
+
+<div class="timeline-left">
+
+<input
+type="checkbox"
+${item.paid ? "checked" : ""}
+onchange="toggleItem(${item.id})">
+
+<div>
+
+<div>
+${item.date}
+</div>
+
+<div>
+${item.desc}
+</div>
+
+</div>
+
+</div>
+
+<div>
+
+$${item.amount}
+
+</div>
+
+`;
 
 body.appendChild(row);
 
@@ -1269,6 +1293,10 @@ let item =
 budgetData.timeline.find(
 x => x.id === id
 );
+
+if(!item){
+return;
+}
 
 item.paid =
 !item.paid;
