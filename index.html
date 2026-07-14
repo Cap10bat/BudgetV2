@@ -1742,7 +1742,13 @@ refreshDashboard;
 refreshDashboard =
 function(){
 
-    originalRefresh();
+    renderTimeline();
+
+    buildNext14Days();
+
+    calculateForecasts();
+
+    saveData();
 
 };
   
