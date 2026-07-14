@@ -1440,28 +1440,15 @@ monthRemaining += item.amount;
 document.getElementById(
 "monthRemaining"
 ).innerText =
-"$" +
-monthRemaining.toFixed(2);
+"TEST";
 
 document.getElementById(
 "yearRemaining"
 ).innerText =
-"$" +
-yearRemaining.toFixed(2);
-
-document.getElementById(
-"monthRemaining"
-).innerText =
-"$" +
-monthRemaining.toFixed(2);
-
-document.getElementById(
-"yearRemaining"
-).innerText =
-"$" +
-yearRemaining.toFixed(2);
+budgetData.timeline.length;
 
 renderTimeline();
+
 
 buildNext14Days();
 
@@ -1858,20 +1845,6 @@ document.getElementById(
 "emergencySaved"
 ).value =
 budgetData.emergencySaved;
-console.log("Timeline Count:", budgetData.timeline.length);
-
-console.log("Timeline Data:", budgetData.timeline);
-
-console.log("renderTimeline exists:", typeof renderTimeline);
-
-console.log("buildNext14Days exists:", typeof buildNext14Days);
-
-console.log(
-"calculateForecasts exists:",
-typeof calculateForecasts
-);
-
-alert("Timeline Count: " + budgetData.timeline.length);
 
 refreshDashboard();
 
