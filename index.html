@@ -1214,40 +1214,12 @@ document.createElement("div");
 row.className =
 "timeline-item";
 
-row.innerHTML =
-
-
-
-<div class="timeline-left">
-
-<input
-type="checkbox"
-${item.paid ? "checked" : ""}
-onchange="toggleItem(${item.id})">
-
-<div>
-
-<div>
-${item.date}
-</div>
-
-<div class="${getTypeClass(item.type)}">
-
-${item.desc}
-
-</div>
-
-</div>
-
-</div>
-
-<div>
-
-$${item.amount}
-
-</div>
-
-`;
+row.innerText =
+item.date +
+" - " +
+item.desc +
+" - $" +
+item.amount;
 
 body.appendChild(row);
 
