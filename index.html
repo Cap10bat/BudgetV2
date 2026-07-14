@@ -1437,6 +1437,11 @@ monthRemaining += item.amount;
 }
 
 });
+
+  alert(
+"Month=" + monthRemaining +
+" Year=" + yearRemaining
+);
 renderTimeline();
 
 buildNext14Days();
@@ -1444,7 +1449,7 @@ buildNext14Days();
 calculateForecasts();
 
 saveData();
-  
+
 }
   
 function addExpense(){
@@ -1453,7 +1458,7 @@ let desc =
 document.getElementById(
 "expenseDesc"
 ).value;
-
+}
 let amount =
 parseFloat(
 document.getElementById(
