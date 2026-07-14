@@ -1363,6 +1363,8 @@ document.getElementById(
 container.innerHTML = "";
 
 let total = 0;
+let income = 0;
+let bills = 0;
 
 let upcoming =
 budgetData.timeline
@@ -1371,8 +1373,17 @@ budgetData.timeline
 
 upcoming.forEach(item=>{
 
-if(item.type !== "income"){
+if(item.type === "income"){
+
+income += item.amount;
 total += item.amount;
+
+}
+else{
+
+bills += item.amount;
+total -= item.amount;
+
 }
 
 let row =
@@ -1432,8 +1443,20 @@ footer.style.marginTop =
 "10px";
 
 footer.innerHTML =
-"Next 14 Days Total: $" +
+
+"Income Coming: $" +
+income.toFixed(2) +
+
+"<br><br>" +
+
+"Bills Due: $" +
+bills.toFixed(2) +
+
+"<br><br>" +
+
+"Net Effect: $" +
 total.toFixed(2);
+
 
 container.appendChild(
 footer
