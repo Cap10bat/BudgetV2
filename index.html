@@ -1143,11 +1143,23 @@ document.getElementById(monthId);
 let header =
 section.previousElementSibling;
 
-section.classList.toggle("hidden");
-
 if(
-section.classList.contains("hidden")
+section.style.display === "none"
 ){
+
+section.style.display = "block";
+
+header.innerHTML =
+header.innerHTML.replace(
+"▶",
+"▼"
+);
+
+}
+else
+{
+
+section.style.display = "none";
 
 header.innerHTML =
 header.innerHTML.replace(
@@ -1156,14 +1168,6 @@ header.innerHTML.replace(
 );
 
 }
-else
-{
-
-header.innerHTML =
-header.innerHTML.replace(
-"▶",
-"▼"
-);
 
 }
 
