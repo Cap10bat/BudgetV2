@@ -1140,7 +1140,32 @@ function toggleMonth(monthId){
 let section =
 document.getElementById(monthId);
 
+let header =
+section.previousElementSibling;
+
 section.classList.toggle("hidden");
+
+if(
+section.classList.contains("hidden")
+){
+
+header.innerHTML =
+header.innerHTML.replace(
+"▼",
+"▶"
+);
+
+}
+else
+{
+
+header.innerHTML =
+header.innerHTML.replace(
+"▶",
+"▼"
+);
+
+}
 
 }
 
