@@ -1409,22 +1409,10 @@ document.getElementById(
 "schoolProgress"
 ).style.width =
 progress + "%";
-alert(
-"Timeline Length = " +
-budgetData.timeline.length
-);
-alert(
-"Timeline items in dashboard = " +
-budgetData.timeline.length
-);
-let monthRemaining = 0;
+
+  let monthRemaining = 0;
 let yearRemaining = 0;
 
-  alert(
-JSON.stringify(
-budgetData.timeline[0]
-)
-);
   
 budgetData.timeline.forEach(item=>{
 
@@ -1444,10 +1432,18 @@ monthRemaining += item.amount;
 
 });
 
-  alert(
-"Month=" + monthRemaining +
-" Year=" + yearRemaining
-);
+document.getElementById(
+"monthRemaining"
+).innerText =
+"$" +
+monthRemaining.toFixed(2);
+
+document.getElementById(
+"yearRemaining"
+).innerText =
+"$" +
+yearRemaining.toFixed(2);
+
 renderTimeline();
 
 buildNext14Days();
