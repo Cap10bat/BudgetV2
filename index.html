@@ -1413,12 +1413,14 @@ monthRemaining += Number(item.amount || 0);
 document.getElementById(
 "monthRemaining"
 ).innerText =
-monthRemaining;
+"$" +
+monthRemaining.toFixed(2);
 
 document.getElementById(
 "yearRemaining"
 ).innerText =
-yearRemaining;
+"$" +
+yearRemaining.toFixed(2);
 
 renderTimeline();
 
