@@ -431,6 +431,39 @@ Transfer To Boo
 
 </div>
 
+  <div class="row">
+
+<input
+id="billDesc"
+placeholder="Bill Name">
+
+<input
+id="billAmount"
+type="number"
+placeholder="Amount">
+
+<input
+id="billDate"
+type="date">
+
+<select id="billAccount">
+
+<option value="boo">
+Boo
+</option>
+
+<option value="me">
+Stephen
+</option>
+
+</select>
+
+<button onclick="addBill()">
+Add Bill
+</button>
+
+</div>
+  
 </div>
 
 <div class="section">
@@ -1512,7 +1545,76 @@ calculateForecasts();
 saveData();
 
 }
-  
+  function addBill(){
+
+let desc =
+document.getElementById(
+"billDesc"
+).value;
+
+let amount =
+parseFloat(
+document.getElementById(
+"billAmount"
+).value
+);
+
+let date =
+document.getElementById(
+"billDate"
+).value;
+
+let account =
+document.getElementById(
+"billAccount"
+).value;
+
+if(
+!desc ||
+!amount ||
+!date
+){
+return;
+}
+
+let dateObj =
+new Date(date);
+
+let month =
+dateObj.toLocaleString(
+"en-US",
+{
+month:"long"
+}
+) +
+" " +
+dateObj.getFullYear();
+
+budgetData.timeline.push({
+
+id:Date.now(),
+
+month:month,
+
+date:date,
+
+desc:desc,
+
+amount:amount,
+
+account:account,
+
+type:"expense",
+
+paid:false
+
+});
+
+saveData();
+
+refreshDashboard();
+
+}
 function addExpense(){
 
 let desc =
