@@ -1409,7 +1409,22 @@ monthRemaining += Number(item.amount || 0);
 }
 
 });
+  
+document.getElementById(
+"monthRemaining"
+).innerText =
+"COUNT=" + budgetData.timeline.length;
 
+document.getElementById(
+"yearRemaining"
+).innerText =
+"MONTHS=" +
+Object.keys(
+budgetData.timeline.reduce((a,b)=>{
+a[b.month]=true;
+return a;
+}, {})
+).length;
   
 document.getElementById(
 "monthRemaining"
