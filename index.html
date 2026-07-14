@@ -1385,11 +1385,15 @@ document.getElementById(
 ).style.width =
 progress + "%";
 
+  alert("AFTER PROGRESS");
+  
   let monthRemaining = 0;
 let yearRemaining = 0;
 
   
 alert(JSON.stringify(budgetData.timeline[0]));
+
+  alert("BEFORE LOOP");
 
 budgetData.timeline.forEach(item=>{
 
