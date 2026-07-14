@@ -1388,15 +1388,12 @@ progress + "%";
   let monthRemaining = 0;
 let yearRemaining = 0;
 
-  alert(
-Array.isArray(
-budgetData.timeline
-)
-);
   
 budgetData.timeline.forEach(item=>{
 
-if(true){
+if(
+item.type !== "income"
+){
 
 yearRemaining += item.amount;
 
@@ -1412,22 +1409,16 @@ monthRemaining += item.amount;
 
 });
 
-  alert(
-"Month = " + monthRemaining +
-" Year = " + yearRemaining
-);
   
 document.getElementById(
 "monthRemaining"
 ).innerText =
-"$" +
-monthRemaining.toFixed(2);
+monthRemaining;
 
 document.getElementById(
 "yearRemaining"
 ).innerText =
-"$" +
-yearRemaining.toFixed(2);
+yearRemaining;
 
 renderTimeline();
 
