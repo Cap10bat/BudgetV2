@@ -1385,15 +1385,10 @@ document.getElementById(
 ).style.width =
 progress + "%";
 
-  alert("AFTER PROGRESS");
   
   let monthRemaining = 0;
 let yearRemaining = 0;
 
-  
-alert(JSON.stringify(budgetData.timeline[0]));
-
-  alert("BEFORE LOOP");
 
 budgetData.timeline.forEach(item=>{
 
@@ -1401,13 +1396,13 @@ if(
 item.type !== "income"
 ){
 
-yearRemaining += item.amount;
+yearRemaining += Number(item.amount || 0);
 
 if(
 item.month === "July 2026"
 ){
 
-monthRemaining += item.amount;
+monthRemaining += Number(item.amount || 0);
 
 }
 
@@ -1495,7 +1490,7 @@ document.getElementById(
 "expenseAmount"
 ).value = "";
 
-// refreshDashboard();
+ refreshDashboard();
 
 }
 
@@ -1558,7 +1553,7 @@ document.getElementById(
 "incomeAmount"
 ).value = "";
 
-// refreshDashboard();
+ refreshDashboard();
 
 }
 
@@ -1604,7 +1599,7 @@ document.getElementById(
 "transferAmount"
 ).value = "";
 
-// refreshDashboard();
+refreshDashboard();
 
 }
 
