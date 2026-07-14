@@ -1426,8 +1426,17 @@ item.type !== "income"
 
 yearRemaining += item.amount;
 
+let currentMonth =
+new Date().toLocaleString(
+"en-US",
+{
+month:"long",
+year:"numeric"
+}
+);
+
 if(
-item.month === "July 2026"
+item.month === currentMonth
 ){
 
 monthRemaining += item.amount;
