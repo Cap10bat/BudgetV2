@@ -1437,26 +1437,13 @@ monthRemaining += item.amount;
 }
 
 });
-document.getElementById(
-"monthRemaining"
-).innerText =
-"TEST";
-
-document.getElementById(
-"yearRemaining"
-).innerText =
-budgetData.timeline.length;
-
 renderTimeline();
-
 
 buildNext14Days();
 
+calculateForecasts();
+
 saveData();
-
-}
-
-</script><script>
 
 function addExpense(){
 
