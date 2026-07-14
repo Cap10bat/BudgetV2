@@ -34,6 +34,17 @@ background:var(--bg);
 color:#222;
 }
 
+  .timeline-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.timeline-item input[type="checkbox"]{
+    width:18px;
+    height:18px;
+}
+  
 h1,h2,h3{
 margin-top:0;
 color:var(--primary);
@@ -1336,16 +1347,31 @@ document.createElement("div");
 
 row.className =
 "timeline-item";
-
+  
+row.style.display = "flex";
+row.style.justifyContent = "space-between";
+row.style.alignItems = "center";
+  
 row.innerHTML = `
+
+<div class="timeline-left">
+
+<input
+type="checkbox"
+${item.paid ? "checked" : ""}
+onchange="toggleItem(${item.id})">
 
 <div>
 
+<div>
 ${item.date}
+</div>
 
--
-
+<div>
 ${item.desc}
+</div>
+
+</div>
 
 </div>
 
