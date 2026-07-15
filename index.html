@@ -1547,41 +1547,6 @@ monthRemaining += Number(item.amount || 0);
 
 });
 
-document.getElementById(
-"monthRemaining"
-).innerText =
-"$" +
-monthRemaining.toFixed(2);
-
-document.getElementById(
-"yearRemaining"
-).innerText =
-"$" +
-yearRemaining.toFixed(2);
-
-  let monthRemaining = 0;
-let yearRemaining = 0;
-
-budgetData.timeline.forEach(item=>{
-
-if(
-!item.paid &&
-item.type !== "income"
-){
-
-yearRemaining += item.amount;
-
-if(
-item.month === "July 2026"
-){
-
-monthRemaining += item.amount;
-
-}
-
-}
-
-});
 
 document.getElementById(
 "monthRemaining"
@@ -1975,43 +1940,13 @@ document.getElementById(
 const originalRefresh =
 refreshDashboard;
 
+const originalRefresh =
+refreshDashboard;
+
 refreshDashboard =
 function(){
 
-    document.getElementById(
-    "booBalance"
-    ).innerText =
-    "$" +
-    budgetData.booBalance.toFixed(2);
-
-    document.getElementById(
-    "meBalance"
-    ).innerText =
-    "$" +
-    budgetData.meBalance.toFixed(2);
-
-    document.getElementById(
-    "combinedBalance"
-    ).innerText =
-    "$" +
-    (
-    budgetData.booBalance +
-    budgetData.meBalance
-    ).toFixed(2);
-
-    document.getElementById(
-    "oweBooDisplay"
-    ).innerText =
-    "$" +
-    budgetData.oweBoo.toFixed(2);
-
-    renderTimeline();
-
-    buildNext14Days();
-
-    calculateForecasts();
-
-    saveData();
+    originalRefresh();
 
 };
   
