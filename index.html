@@ -217,7 +217,12 @@ width:0%;
   <button onclick="showHelp()">
 ❓ Help
 </button>
+
   
+<button onclick="exportBackup()">
+💾 Export Backup
+</button>
+
 <div class="dashboard">
 
 <div class="card">
@@ -1588,6 +1593,40 @@ document.getElementById(
 
 function closeHelp(){
 
+  function exportBackup(){
+
+let data =
+JSON.stringify(
+budgetData,
+null,
+2
+);
+
+let blob =
+new Blob(
+[data],
+{
+type:"application/json"
+}
+);
+
+let a =
+document.createElement(
+"a"
+);
+
+a.href =
+URL.createObjectURL(
+blob
+);
+
+a.download =
+"budgetV2Backup.json";
+
+a.click();
+
+}
+  
 document.getElementById(
 "helpModal"
 ).style.display =
