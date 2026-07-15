@@ -1608,9 +1608,12 @@ yearRemaining.toFixed(2);
 let incomeComing = 0;
 let billsDue = 0;
 
+let upcoming =
 budgetData.timeline
 .filter(x => !x.paid)
-.forEach(item=>{
+.slice(0,10);
+
+upcoming.forEach(item=>{
 
 if(item.type === "income"){
 
