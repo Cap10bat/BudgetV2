@@ -587,6 +587,23 @@ savedData
 );
 
 }
+
+  if(!budgetData.schoolGoal){
+budgetData.schoolGoal = 1000;
+}
+
+if(!budgetData.cruiseGoal){
+budgetData.cruiseGoal = 800;
+}
+
+if(!budgetData.christmasGoal){
+budgetData.christmasGoal = 1500;
+}
+
+if(!budgetData.emergencyGoal){
+budgetData.emergencyGoal = 5000;
+}
+  
 function saveData(){
   
 localStorage.setItem(
