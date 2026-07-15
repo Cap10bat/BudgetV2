@@ -1559,6 +1559,42 @@ document.getElementById(
 "$" +
 yearRemaining.toFixed(2);
 
+  let monthRemaining = 0;
+let yearRemaining = 0;
+
+budgetData.timeline.forEach(item=>{
+
+if(
+!item.paid &&
+item.type !== "income"
+){
+
+yearRemaining += item.amount;
+
+if(
+item.month === "July 2026"
+){
+
+monthRemaining += item.amount;
+
+}
+
+}
+
+});
+
+document.getElementById(
+"monthRemaining"
+).innerText =
+"$" +
+monthRemaining.toFixed(2);
+
+document.getElementById(
+"yearRemaining"
+).innerText =
+"$" +
+yearRemaining.toFixed(2);
+  
 renderTimeline();
 
 buildNext14Days();
