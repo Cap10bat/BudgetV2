@@ -1530,6 +1530,7 @@ let yearRemaining = 0;
 budgetData.timeline.forEach(item=>{
 
 if(
+!item.paid &&
 item.type !== "income"
 ){
 
