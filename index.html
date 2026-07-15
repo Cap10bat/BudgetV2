@@ -497,7 +497,20 @@ emergencySaved:0,
 timeline:[]
 
 };
+  
+let savedData =
+localStorage.getItem(
+"budgetV2Beta2"
+);
 
+if(savedData){
+
+budgetData =
+JSON.parse(
+savedData
+);
+
+}
 function saveData(){
 
 localStorage.setItem(
