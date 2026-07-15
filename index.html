@@ -1942,6 +1942,33 @@ refreshDashboard;
 refreshDashboard =
 function(){
 
+    document.getElementById(
+    "booBalance"
+    ).innerText =
+    "$" +
+    budgetData.booBalance.toFixed(2);
+
+    document.getElementById(
+    "meBalance"
+    ).innerText =
+    "$" +
+    budgetData.meBalance.toFixed(2);
+
+    document.getElementById(
+    "combinedBalance"
+    ).innerText =
+    "$" +
+    (
+    budgetData.booBalance +
+    budgetData.meBalance
+    ).toFixed(2);
+
+    document.getElementById(
+    "oweBooDisplay"
+    ).innerText =
+    "$" +
+    budgetData.oweBoo.toFixed(2);
+
     renderTimeline();
 
     buildNext14Days();
