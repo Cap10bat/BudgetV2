@@ -1978,9 +1978,6 @@ document.getElementById(
 ).value
 ) || 0;
 
-alert(
-budgetData.booBalance
-);
   
 budgetData.meBalance =
 parseFloat(
@@ -2026,25 +2023,11 @@ document.getElementById(
 
   saveData();
 
-  document.getElementById(
-"booBalance"
-).innerText =
-"$" +
-budgetData.booBalance.toFixed(2);
 
-document.getElementById(
-"combinedBalance"
-).innerText =
-"$" +
-(
-budgetData.booBalance +
-budgetData.meBalance
-).toFixed(2);
-
-  
-  refreshDashboard();
+originalRefresh();
 
 };
+
 
 </script><script>
 
