@@ -2004,6 +2004,22 @@ document.getElementById(
 ) || 0;
 
   saveData();
+
+  document.getElementById(
+"booBalance"
+).innerText =
+"$" +
+budgetData.booBalance.toFixed(2);
+
+document.getElementById(
+"combinedBalance"
+).innerText =
+"$" +
+(
+budgetData.booBalance +
+budgetData.meBalance
+).toFixed(2);
+
   
   refreshDashboard();
 
