@@ -380,6 +380,48 @@ School Supplies Goal Remaining:
 <span id="schoolRemaining">$1000</span>
 </div>
 
+  <br>
+
+<div>
+Cruise Goal:
+<span id="cruiseRemaining">$800</span>
+</div>
+
+<div class="progress">
+<div
+id="cruiseProgress"
+class="progress-fill">
+</div>
+</div>
+
+<br>
+
+<div>
+Christmas Goal:
+<span id="christmasRemaining">$1500</span>
+</div>
+
+<div class="progress">
+<div
+id="christmasProgress"
+class="progress-fill">
+</div>
+</div>
+
+<br>
+
+<div>
+Emergency Goal:
+<span id="emergencyRemaining">$5000</span>
+</div>
+
+<div class="progress">
+<div
+id="emergencyProgress"
+class="progress-fill">
+</div>
+</div>
+  
 </div><div class="section">
 
 <h2>Actions</h2>
@@ -517,6 +559,16 @@ cruiseSaved:0,
 christmasSaved:0,
 
 emergencySaved:0,
+
+  
+schoolGoal:1000,
+
+cruiseGoal:800,
+
+christmasGoal:1500,
+
+emergencyGoal:5000,
+
 
 timeline:[]
 
@@ -1551,20 +1603,107 @@ document.getElementById(
 "$" +
 schoolRemaining.toFixed(2);
 
-let progress =
+let schoolProgress =
 (
 budgetData.schoolSaved /
-1000
+budgetData.schoolGoal
 ) * 100;
 
-if(progress > 100){
-progress = 100;
+if(schoolProgress > 100){
+schoolProgress = 100;
 }
 
 document.getElementById(
 "schoolProgress"
 ).style.width =
-progress + "%";
+schoolProgress + "%";
+
+document.getElementById(
+"schoolRemaining"
+).innerText =
+"$" +
+(
+budgetData.schoolGoal -
+budgetData.schoolSaved
+).toFixed(2);
+
+
+
+let cruiseProgress =
+(
+budgetData.cruiseSaved /
+budgetData.cruiseGoal
+) * 100;
+
+if(cruiseProgress > 100){
+cruiseProgress = 100;
+}
+
+document.getElementById(
+"cruiseProgress"
+).style.width =
+cruiseProgress + "%";
+
+document.getElementById(
+"cruiseRemaining"
+).innerText =
+"$" +
+(
+budgetData.cruiseGoal -
+budgetData.cruiseSaved
+).toFixed(2);
+
+
+
+let christmasProgress =
+(
+budgetData.christmasSaved /
+budgetData.christmasGoal
+) * 100;
+
+if(christmasProgress > 100){
+christmasProgress = 100;
+}
+
+document.getElementById(
+"christmasProgress"
+).style.width =
+christmasProgress + "%";
+
+document.getElementById(
+"christmasRemaining"
+).innerText =
+"$" +
+(
+budgetData.christmasGoal -
+budgetData.christmasSaved
+).toFixed(2);
+
+
+
+let emergencyProgress =
+(
+budgetData.emergencySaved /
+budgetData.emergencyGoal
+) * 100;
+
+if(emergencyProgress > 100){
+emergencyProgress = 100;
+}
+
+document.getElementById(
+"emergencyProgress"
+).style.width =
+emergencyProgress + "%";
+
+document.getElementById(
+"emergencyRemaining"
+).innerText =
+"$" +
+(
+budgetData.emergencyGoal -
+budgetData.emergencySaved
+).toFixed(2);
 
   
   let monthRemaining = 0;
