@@ -1644,6 +1644,13 @@ a.click();
 function refreshDashboard(){
   
   
+alert("REFRESH RUNNING");
+
+alert(
+"Timeline Length: " +
+budgetData.timeline.length
+);
+
 document.getElementById(
 "booBalance"
 ).innerText =
@@ -2407,6 +2414,8 @@ document.getElementById(
 "emergencySaved"
 ).value =
 budgetData.emergencySaved;
+
+alert("ABOUT TO CALL REFRESH");
 
 refreshDashboard();
 
