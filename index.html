@@ -1605,15 +1605,58 @@ document.getElementById(
 "$" +
 yearRemaining.toFixed(2);
 
-  let availableCash =
-combinedCash -
-monthRemaining;
+let incomeComing = 0;
+let billsDue = 0;
+
+budgetData.timeline
+.filter(x => !x.paid)
+.forEach(item=>{
+
+if(item.type === "income"){
+
+incomeComing += item.amount;
+
+}
+else if(
+item.type !== "transfer"
+){
+
+billsDue += item.amount;
+
+}
+
+});
+
+let availableCash =
+combinedCash +
+incomeComing -
+billsDue;
 
 document.getElementById(
 "availableCash"
 ).innerText =
 "$" +
 availableCash.toFixed(2);
+
+if(
+availableCash >= 0
+){
+
+document.getElementById(
+"availableCash"
+).style.color =
+"#00a000";
+
+}
+else
+{
+
+document.getElementById(
+"availableCash"
+).style.color =
+"#cc0000";
+
+}
   
 renderTimeline();
 
