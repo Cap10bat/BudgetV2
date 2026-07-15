@@ -142,14 +142,26 @@ font-weight:bold;
 padding:8px;
 }
 
-.timeline-item{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px;
-border-bottom:1px solid #eee;
+.timeline-item.income{
+    border-left:4px solid #00a000;
+    padding-left:8px;
 }
 
+.timeline-item.expense{
+    border-left:4px solid #cc0000;
+    padding-left:8px;
+}
+
+.timeline-item.transfer{
+    border-left:4px solid #0066cc;
+    padding-left:8px;
+}
+
+.timeline-item.goal{
+    border-left:4px solid #8000cc;
+    padding-left:8px;
+}
+  
 .timeline-left{
 display:flex;
 align-items:center;
@@ -1306,7 +1318,8 @@ let row =
 document.createElement("div");
 
 row.className =
-"timeline-item";
+"timeline-item " +
+getTypeClass(item.type);
 
 row.innerHTML = `
 
