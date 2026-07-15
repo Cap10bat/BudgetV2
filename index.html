@@ -2357,7 +2357,15 @@ alert("ABOUT TO CALL REFRESH");
 alert(typeof refreshDashboard);
 
 refreshDashboard();
+  
+function showHelp() {
+    document.getElementById("helpModal").style.display = "block";
+}
 
+function closeHelp() {
+    document.getElementById("helpModal").style.display = "none";
+}
+  
 </script>
 
   <div
