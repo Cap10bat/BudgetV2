@@ -1577,52 +1577,23 @@ footer
 
 }
 
-  function showHelp(){
+ function showHelp(){
 
-alert(
-
-`BUDGET V2 HELP
-
-Boo Balance
-Actual Boo account balance.
-
-Stephen Balance
-Actual Stephen account balance.
-
-Combined Cash
-Boo + Stephen balances combined.
-
-Available Cash
-Projected cash after upcoming income and bills.
-
-This Month Remaining
-Unpaid obligations still due this month.
-
-Year Remaining
-All unpaid obligations remaining in the timeline.
-
-Forecasts
-Projected cash at the end of each month.
-
-Next 14 Days
-Shows upcoming income, bills due, and net effect.
-
-Reconciliation
-Updates actual account balances.
-
-Checkboxes
-Checking a transaction marks it completed and removes it from future projections.
-
-Timeline
-Master list of all upcoming and completed transactions.
-
-Goals
-Tracks School Supplies, Cruise, Christmas, and Emergency savings progress.`
-
-);
+document.getElementById(
+"helpModal"
+).style.display =
+"block";
 
 }
 
+function closeHelp(){
+
+document.getElementById(
+"helpModal"
+).style.display =
+"none";
+
+}
 function refreshDashboard(){
 
 document.getElementById(
@@ -2393,6 +2364,133 @@ budgetData.emergencySaved;
 refreshDashboard();
 
 </script>
+
+  <div
+id="helpModal"
+style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+z-index:9999;
+">
+
+<div
+style="
+background:white;
+width:80%;
+max-width:800px;
+height:80%;
+margin:40px auto;
+padding:20px;
+border-radius:12px;
+overflow-y:auto;
+position:relative;
+">
+
+<button
+onclick="closeHelp()"
+style="
+position:absolute;
+right:15px;
+top:15px;
+">
+X
+</button>
+
+<h2>BudgetV2 Help Center</h2>
+
+<h3>Dashboard Cards</h3>
+
+<p><b>Boo Balance</b><br>
+Actual Boo account balance from Reconciliation.
+</p>
+
+<p><b>Stephen Balance</b><br>
+Actual Stephen account balance from Reconciliation.
+</p>
+
+<p><b>Combined Cash</b><br>
+Boo Balance + Stephen Balance.
+</p>
+
+<p><b>Available Cash</b><br>
+Projected cash after upcoming income and bills.
+Use this to answer:
+"Can we afford it?"
+</p>
+
+<p><b>This Month Remaining</b><br>
+All unpaid obligations remaining this month.
+</p>
+
+<p><b>Year Remaining</b><br>
+All unpaid obligations currently loaded into the timeline.
+</p>
+
+<h3>Next 14 Days</h3>
+
+<p>
+Income Coming = Upcoming income.<br>
+Bills Due = Upcoming expenses.<br>
+Net Effect = Income minus expenses.
+</p>
+
+<h3>Forecasts</h3>
+
+<p>
+Forecasts show projected cash at the end of each month if all planned income and expenses occur.
+</p>
+
+<p>
+Green = Healthy<br>
+Orange = Watch Closely<br>
+Red = Potential Trouble
+</p>
+
+<h3>Timeline</h3>
+
+<p>
+Green = Income<br>
+Red = Expense<br>
+Blue = Transfer<br>
+Purple = Goal
+</p>
+
+<p>
+Checking a box means:
+"This transaction happened."
+</p>
+
+<h3>Reconciliation</h3>
+
+<p>
+Use Reconciliation whenever you verify actual bank balances.
+</p>
+
+<h3>Goals</h3>
+
+<p>
+Track School Supplies, Cruise, Christmas and Emergency savings progress.
+</p>
+
+<h3>Recommended Workflow</h3>
+
+<ol>
+<li>Update actual balances.</li>
+<li>Add future bills and income.</li>
+<li>Check items as they happen.</li>
+<li>Review forecasts.</li>
+<li>Track goals.</li>
+<li>Monitor Available Cash.</li>
+</ol>
+
+</div>
+
+</div>
 
 </body>
 </html>
