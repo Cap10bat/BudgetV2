@@ -1954,6 +1954,42 @@ document.getElementById(
 ).innerText =
 "$" + december.toFixed(0);
 
+[
+["julyForecast", july],
+["augForecast", august],
+["sepForecast", september],
+["octForecast", october],
+["novForecast", november],
+["decForecast", december]
+]
+.forEach(f=>{
+
+let card =
+document.getElementById(
+f[0]
+);
+
+if(f[1] > 5000){
+
+card.style.color =
+"green";
+
+}
+else if(f[1] > 1000){
+
+card.style.color =
+"orange";
+
+}
+else{
+
+card.style.color =
+"red";
+
+}
+
+});
+
 }
 
 </script><script>
