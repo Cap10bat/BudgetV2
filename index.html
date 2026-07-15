@@ -220,7 +220,19 @@ width:0%;
 <div class="card-title">Boo Balance</div>
 <div id="booBalance" class="card-value green">$1700.00</div>
 </div>
+<div class="card">
 
+<div class="card-title">
+Available Cash
+</div>
+
+<div
+id="availableCash"
+class="card-value">
+$0.00
+</div>
+
+</div>
 <div class="card">
 <div class="card-title">Stephen Balance</div>
 <div id="meBalance" class="card-value red">-$120.00</div>
@@ -1515,6 +1527,10 @@ budgetData.booBalance +
 budgetData.meBalance
 ).toFixed(2);
 
+  let combinedCash =
+budgetData.booBalance +
+budgetData.meBalance;
+  
 document.getElementById(
 "oweBooDisplay"
 ).innerText =
@@ -1588,6 +1604,16 @@ document.getElementById(
 ).innerText =
 "$" +
 yearRemaining.toFixed(2);
+
+  let availableCash =
+combinedCash -
+monthRemaining;
+
+document.getElementById(
+"availableCash"
+).innerText =
+"$" +
+availableCash.toFixed(2);
   
 renderTimeline();
 
