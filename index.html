@@ -214,6 +214,10 @@ width:0%;
 
 <h1>BudgetV2 Household Forecast</h1>
 
+  <button onclick="showHelp()">
+❓ Help
+</button>
+  
 <div class="dashboard">
 
 <div class="card">
@@ -1569,6 +1573,52 @@ total.toFixed(2);
 
 container.appendChild(
 footer
+);
+
+}
+
+  function showHelp(){
+
+alert(
+
+`BUDGET V2 HELP
+
+Boo Balance
+Actual Boo account balance.
+
+Stephen Balance
+Actual Stephen account balance.
+
+Combined Cash
+Boo + Stephen balances combined.
+
+Available Cash
+Projected cash after upcoming income and bills.
+
+This Month Remaining
+Unpaid obligations still due this month.
+
+Year Remaining
+All unpaid obligations remaining in the timeline.
+
+Forecasts
+Projected cash at the end of each month.
+
+Next 14 Days
+Shows upcoming income, bills due, and net effect.
+
+Reconciliation
+Updates actual account balances.
+
+Checkboxes
+Checking a transaction marks it completed and removes it from future projections.
+
+Timeline
+Master list of all upcoming and completed transactions.
+
+Goals
+Tracks School Supplies, Cruise, Christmas, and Emergency savings progress.`
+
 );
 
 }
