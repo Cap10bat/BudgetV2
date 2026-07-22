@@ -1414,6 +1414,10 @@ income - bills;
 let card =
 document.createElement("div");
 
+  let detailId =
+"summary_" +
+month.replaceAll(" ","_");
+  
 let cardClass =
 "month-card ";
 
@@ -1438,7 +1442,13 @@ cardClass;
 
 card.innerHTML =
 
-"<b>" + month + "</b><br><br>" +
+"<div style='cursor:pointer;font-weight:bold;' onclick='toggleSummary(\"" +
+detailId +
+"\")'>" +
+
+month +
+
+"</div><br>" +
 
 "Income: $" +
 income.toFixed(0) +
@@ -1451,12 +1461,84 @@ bills.toFixed(0) +
 "<br>" +
 
 "Net: $" +
-net.toFixed(0);
+net.toFixed(0) +
+
+"<div id='" +
+detailId +
+"' style='display:none;margin-top:15px;'>" +
+
+"<div><b>Income</b></div>" +
+
+"<div id='" +
+detailId +
+"_income'></div>" +
+
+"<br>" +
+
+"<div><b>Bills</b></div>" +
+
+"<div id='" +
+detailId +
+"_bills'></div>" +
+
+"<br>" +
+
+"<div><b>Remaining</b></div>" +
+
+"$" +
+net.toFixed(0) +
+
+"</div>";
 
 container.appendChild(
 card
 );
 
+  let incomeBox =
+document.getElementById(
+detailId + "_income"
+);
+
+let billBox =
+document.getElementById(
+detailId + "_bills"
+);
+
+budgetData.timeline
+.filter(x =>
+x.month === month &&
+!x.paid
+)
+.forEach(item=>{
+
+let div =
+document.createElement("div");
+
+div.innerHTML =
+item.date +
+" - " +
+item.desc +
+" ($" +
+item.amount +
+")";
+
+if(
+item.type === "income"
+){
+
+incomeBox.appendChild(div);
+
+}
+else if(
+item.type !== "transfer"
+){
+
+billBox.appendChild(div);
+
+}
+
+});
+  
 });
 
 }
