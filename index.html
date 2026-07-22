@@ -251,6 +251,18 @@ padding:10px;
 background:#f8f9fa;
 }
 
+.coming-up{
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:10px;
+  background:#f8f9fa;
+}
+
+.coming-up h3{
+  margin-top:0;
+}
+  
 .summary-box h4{
   margin-top:0;
   margin-bottom:10px;
@@ -677,6 +689,8 @@ Add Bill
 <h2>📅 Monthly Summary</h2>
 
 <div id="monthlySummary"></div>
+
+<div id="comingUpCard"></div>
 
 <br>
   
@@ -1525,28 +1539,69 @@ section.style.display =
 }
 
   function toggleLedger(){
+  ...
+}
 
-  let section =
+function renderComingUp(){
+
+  let container =
     document.getElementById(
-      "ledgerBody"
+      "comingUpCard"
     );
 
-  if(
-    section.style.display === "none" ||
-    section.style.display === ""
-  ){
+  let upcoming =
+    budgetData.timeline
+      .filter(x => !x.paid)
+      .sort((a,b)=>
+        new Date(a.date) -
+        new Date(b.date)
+      )
+      .slice(0,5);
 
-    section.style.display = "block";
+  let html =
+    '<div class="coming-up">' +
+    '<h3>📌 Coming Up</h3>';
 
-  }else{
+  let net = 0;
 
-    section.style.display = "none";
+  upcoming.forEach(item=>{
 
-  }
+    let sign =
+      item.type === "income"
+      ? "+"
+      : "-";
+
+    if(item.type === "income"){
+      net += item.amount;
+    }else{
+      net -= item.amount;
+    }
+
+    html +=
+      item.date +
+      " - " +
+      item.desc +
+      " (" +
+      sign +
+      "$" +
+      item.amount +
+      ")" +
+      "<br>";
+
+  });
+
+  html +=
+    "<br><b>Net Upcoming: $" +
+    net.toFixed(0) +
+    "</b>";
+
+  html += "</div>";
+
+  container.innerHTML = html;
 
 }
-  
-  function renderMonthlySummary(){
+
+function renderMonthlySummary(){
 
 let container =
 document.getElementById(
@@ -2321,6 +2376,8 @@ document.getElementById(
 }
   
 renderMonthlySummary();
+
+renderComingUp();
 
 renderTimeline();
 
