@@ -247,6 +247,25 @@ margin-top:0;
 margin-bottom:10px;
 text-align:center;
 } 
+
+  .summary-box div{
+  padding:6px;
+  border-bottom:1px solid #eee;
+}
+
+.summary-box div:last-child{
+  border-bottom:none;
+}
+
+.summary-box label{
+  display:block;
+  cursor:pointer;
+}
+
+.summary-box input[type="checkbox"]{
+  margin-right:8px;
+}
+
   
 </style>
 
@@ -1611,22 +1630,23 @@ document.createElement("div");
 
 if(
   item.type !== "income" &&
-  item.type !== "transfer" &&
-  !item.paid
+  item.type !== "transfer"
 ){
 
-  div.innerHTML =
-  '<label>' +
-  '<input type="checkbox" onchange="toggleItem(' +
-  item.id +
-  ')"> ' +
-  item.date +
-  ' - ' +
-  item.desc +
-  ' ($' +
-  item.amount +
-  ')' +
-  '</label>';
+div.innerHTML =
+'<label>' +
+'<input type="checkbox" ' +
+(item.paid ? 'checked ' : '') +
+'onchange="toggleItem(' +
+item.id +
+')"> ' +
+item.date +
+' - ' +
+item.desc +
+' ($' +
+item.amount +
+')' +
+'</label>';
 
 }
 else{
