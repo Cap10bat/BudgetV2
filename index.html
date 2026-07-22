@@ -205,7 +205,26 @@ height:100%;
 background:#198754;
 width:0%;
 }
+  
+.month-card{
+border:1px solid #ddd;
+border-radius:10px;
+padding:12px;
+margin-bottom:10px;
+background:#f8f9fa;
+}
 
+.month-card.good{
+border-left:8px solid #198754;
+}
+
+.month-card.warning{
+border-left:8px solid #ffc107;
+}
+
+.month-card.bad{
+border-left:8px solid #dc3545;
+}
 </style>
 
 </head>
@@ -544,7 +563,12 @@ Add Bill
 <div class="section">
 
 <h2>Timeline</h2>
+  
+<h3>Monthly Summary</h3>
 
+<div id="monthlySummary"></div>
+
+<br>
 <div id="timelineContainer">
 
 </div>
@@ -1334,6 +1358,109 @@ header.innerHTML.replace(
 
 }
 
+  function renderMonthlySummary(){
+
+let container =
+document.getElementById(
+"monthlySummary"
+);
+
+container.innerHTML = "";
+
+let months = {};
+
+budgetData.timeline
+.filter(x => !x.paid)
+.forEach(item=>{
+
+if(!months[item.month]){
+
+months[item.month] = {
+income:0,
+bills:0
+};
+
+}
+
+if(item.type === "income"){
+
+months[item.month].income +=
+Number(item.amount || 0);
+
+}
+else if(
+item.type !== "transfer"
+){
+
+months[item.month].bills +=
+Number(item.amount || 0);
+
+}
+
+});
+
+Object.keys(months)
+.forEach(month=>{
+
+let income =
+months[month].income;
+
+let bills =
+months[month].bills;
+
+let net =
+income - bills;
+
+let card =
+document.createElement("div");
+
+let cardClass =
+"month-card ";
+
+if(net > 1000){
+
+cardClass += "good";
+
+}
+else if(net > 0){
+
+cardClass += "warning";
+
+}
+else{
+
+cardClass += "bad";
+
+}
+
+card.className =
+cardClass;
+
+card.innerHTML =
+
+"<b>" + month + "</b><br><br>" +
+
+"Income: $" +
+income.toFixed(0) +
+
+"<br>" +
+
+"Bills: $" +
+bills.toFixed(0) +
+
+"<br>" +
+
+"Net: $" +
+net.toFixed(0);
+
+container.appendChild(
+card
+);
+
+});
+
+}
+  
 function renderTimeline(){
 
 
@@ -1831,6 +1958,8 @@ document.getElementById(
 
 }
   
+renderMonthlySummary();
+
 renderTimeline();
 
 buildNext14Days();
@@ -1838,6 +1967,7 @@ buildNext14Days();
 calculateForecasts();
 
 saveData();
+
 
 }
   function addBill(){
