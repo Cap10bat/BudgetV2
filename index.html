@@ -672,9 +672,16 @@ Add Bill
   
 <div class="section">
 
-<h2>Timeline</h2>
+<div class="month-header"
+     onclick="toggleLedger()">
+
+📒 Ledger ▼
+
+</div>
+
+<div id="ledgerBody">
   
-<h3>Monthly Summary</h3>
+<h2>📅 Monthly Summary</h2>
 
 <div id="monthlySummary"></div>
 
@@ -684,6 +691,8 @@ Add Bill
 </div>
 
 </div>
+
+</div>  
 
 <script>
 
@@ -1496,6 +1505,28 @@ section.style.display =
   let section =
     document.getElementById(
       "quickActionsBody"
+    );
+
+  if(
+    section.style.display === "none" ||
+    section.style.display === ""
+  ){
+
+    section.style.display = "block";
+
+  }else{
+
+    section.style.display = "none";
+
+  }
+
+}
+
+  function toggleLedger(){
+
+  let section =
+    document.getElementById(
+      "ledgerBody"
     );
 
   if(
