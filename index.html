@@ -590,16 +590,13 @@ localStorage.getItem(
 
 if(savedData){
 
-alert("LOADED SAVED DATA");
+
 
 budgetData =
 JSON.parse(
 savedData
 );
-alert(
-"Timeline Items: " +
-budgetData.timeline.length
-);
+
 }
 
   if(!budgetData.schoolGoal){
@@ -1591,12 +1588,8 @@ footer
 function refreshDashboard(){
   
   
-alert("REFRESH RUNNING");
 
-alert(
-"Timeline Length: " +
-budgetData.timeline.length
-);
+
 
 document.getElementById(
 "booBalance"
@@ -2352,9 +2345,7 @@ document.getElementById(
 ).value =
 budgetData.emergencySaved;
 
-alert("ABOUT TO CALL REFRESH");
 
-alert(typeof refreshDashboard);
 
 refreshDashboard();
   
