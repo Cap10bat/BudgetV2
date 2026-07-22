@@ -1393,7 +1393,6 @@ container.innerHTML = "";
 let months = {};
 
 budgetData.timeline
-.filter(x => !x.paid)
 .forEach(item=>{
 
 if(!months[item.month]){
@@ -1523,12 +1522,20 @@ detailId +
 
 "<br>" +
 
-"<div><b>Bills</b></div>" +
+"<div><b>Due</b></div>" +
 
 "<div id='" +
 detailId +
 "_bills'></div>" +
+  
+"<br>" +
 
+"<div><b>Paid</b></div>" +
+
+"<div id='" +
+detailId +
+"_paid'></div>" +
+  
 "<br>" +
 
 "<div><b>Remaining</b></div>" +
@@ -1552,12 +1559,17 @@ document.getElementById(
 detailId + "_bills"
 );
 
+let paidBox =
+document.getElementById(
+detailId + "_paid"
+);
+  
 budgetData.timeline
 .filter(x =>
-x.month === month &&
-!x.paid
+x.month === month
 )
 .forEach(item=>{
+
 
 let div =
 document.createElement("div");
@@ -1569,7 +1581,7 @@ item.desc +
 " ($" +
 item.amount +
 ")";
-
+  
 if(
 item.type === "income"
 ){
@@ -1581,16 +1593,26 @@ else if(
 item.type !== "transfer"
 ){
 
+if(item.paid){
+
+paidBox.appendChild(div);
+
+}
+else{
+
 billBox.appendChild(div);
 
 }
 
+}
+
 });
   
 });
 
 }
   
+
 function renderTimeline(){
 
 
@@ -1603,7 +1625,6 @@ document.getElementById(
 container.innerHTML = "";
 
 let months = {};
-
 budgetData.timeline
 .sort((a,b)=>
 new Date(a.date) -
