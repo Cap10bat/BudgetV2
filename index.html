@@ -1609,13 +1609,37 @@ x.month === month
 let div =
 document.createElement("div");
 
-div.innerHTML =
-item.date +
-" - " +
-item.desc +
-" ($" +
-item.amount +
-")";
+if(
+  item.type !== "income" &&
+  item.type !== "transfer" &&
+  !item.paid
+){
+
+  div.innerHTML =
+  '<label>' +
+  '<input type="checkbox" onchange="toggleItem(' +
+  item.id +
+  ')"> ' +
+  item.date +
+  ' - ' +
+  item.desc +
+  ' ($' +
+  item.amount +
+  ')' +
+  '</label>';
+
+}
+else{
+
+  div.innerHTML =
+  item.date +
+  " - " +
+  item.desc +
+  " ($" +
+  item.amount +
+  ")";
+
+}
   
 if(
 item.type === "income"
