@@ -225,6 +225,29 @@ border-left:8px solid #ffc107;
 .month-card.bad{
 border-left:8px solid #dc3545;
 }
+
+ .summary-grid{
+display:flex;
+gap:10px;
+margin-top:10px;
+flex-wrap:wrap;
+}
+
+.summary-box{
+flex:1;
+min-width:250px;
+border:1px solid #ccc;
+border-radius:8px;
+padding:10px;
+background:#f8f9fa;
+}
+
+.summary-box h4{
+margin-top:0;
+margin-bottom:10px;
+text-align:center;
+} 
+  
 </style>
 
 </head>
@@ -1514,27 +1537,39 @@ net.toFixed(0) +
 detailId +
 "' style='display:none;margin-top:15px;'>" +
 
-"<div><b>Income</b></div>" +
+"<div class='summary-grid'>" +
+
+"<div class='summary-box'>" +
+
+"<h4>Income</h4>" +
 
 "<div id='" +
 detailId +
 "_income'></div>" +
 
-"<br>" +
+"</div>" +
 
-"<div><b>Due</b></div>" +
+"<div class='summary-box'>" +
+
+"<h4>Due</h4>" +
 
 "<div id='" +
 detailId +
 "_bills'></div>" +
-  
-"<br>" +
 
-"<div><b>Paid</b></div>" +
+"</div>" +
+
+"<div class='summary-box'>" +
+
+"<h4>Paid</h4>" +
 
 "<div id='" +
 detailId +
 "_paid'></div>" +
+
+"</div>" +
+
+"</div>" +
   
 "<br>" +
 
