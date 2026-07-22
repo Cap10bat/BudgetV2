@@ -1400,7 +1400,9 @@ if(!months[item.month]){
 
 months[item.month] = {
 income:0,
-bills:0
+bills:0,
+due:0,
+paid:0
 };
 
 }
@@ -1418,7 +1420,19 @@ item.type !== "transfer"
 months[item.month].bills +=
 Number(item.amount || 0);
 
+if(item.paid){
+
+months[item.month].paid++;
+
 }
+else{
+
+months[item.month].due++;
+
+}
+
+}
+
 
 });
 
@@ -1431,6 +1445,12 @@ months[month].income;
 let bills =
 months[month].bills;
 
+let due =
+months[month].due;
+
+let paid =
+months[month].paid;
+  
 let net =
 income - bills;
 
@@ -1473,19 +1493,24 @@ month +
 
 "</div><br>" +
 
-"Income: $" +
+"💰 Income: $" +
 income.toFixed(0) +
 
 "<br>" +
 
-"Bills: $" +
-bills.toFixed(0) +
+"⏳ Due: " +
+due +
 
 "<br>" +
 
-"Net: $" +
-net.toFixed(0) +
+"✅ Paid: " +
+paid +
 
+"<br>" +
+
+"💵 Left Over: $" +
+net.toFixed(0) +
+  
 "<div id='" +
 detailId +
 "' style='display:none;margin-top:15px;'>" +
