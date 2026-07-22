@@ -207,12 +207,16 @@ width:0%;
 }
   
 .month-card{
-border:1px solid #ddd;
-border-radius:10px;
-padding:12px;
-margin-bottom:10px;
-background:#f8f9fa;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:12px;
+  margin-bottom:10px;
+  background:#f8f9fa;
+  transition:.2s;
+  line-height:1.4;
 }
+
+  
 
 .month-card.good{
 border-left:8px solid #198754;
@@ -225,7 +229,11 @@ border-left:8px solid #ffc107;
 .month-card.bad{
 border-left:8px solid #dc3545;
 }
-
+  
+.month-card:hover{
+  transform:translateY(-2px);
+}
+  
  .summary-grid{
 display:flex;
 gap:10px;
@@ -236,6 +244,7 @@ flex-wrap:wrap;
 .summary-box{
 flex:1;
 min-width:250px;
+  box-shadow:0 1px 3px rgba(0,0,0,.08);
 border:1px solid #ccc;
 border-radius:8px;
 padding:10px;
@@ -243,10 +252,12 @@ background:#f8f9fa;
 }
 
 .summary-box h4{
-margin-top:0;
-margin-bottom:10px;
-text-align:center;
-} 
+  margin-top:0;
+  margin-bottom:10px;
+  text-align:center;
+  border-bottom:1px solid #ddd;
+  padding-bottom:6px;
+}
 
   .summary-box div{
   padding:6px;
@@ -266,6 +277,34 @@ text-align:center;
   margin-right:8px;
 }
 
+  @media (max-width:768px){
+
+  .summary-grid{
+    flex-direction:column;
+  }
+
+  .summary-box{
+    width:100%;
+  }
+
+}
+
+@media (max-width:768px){
+
+  .summary-grid{
+    flex-direction:column;
+  }
+
+  .summary-box{
+    width:100%;
+  }
+
+}
+
+#quickActionsBody{
+  display:none;
+  margin-top:10px;
+}
   
 </style>
 
@@ -496,6 +535,13 @@ class="progress-fill">
 
 <h2>Actions</h2>
 
+<div class="month-header"
+     onclick="toggleQuickActions()">
+⚡ Quick Actions
+</div>
+
+<div id="quickActionsBody">
+  
 <div class="row">
 
 <input
@@ -549,6 +595,26 @@ Boo
 </select>
 
 <button onclick="addIncome()">
+  <div
+class="month-header"
+onclick="toggleQuickActions()">
+
+⚡ Quick Actions
+
+</div>
+
+<div
+id="quickActionsBody">
+
+<div class="month-header"
+     onclick="toggleQuickActions()">
+
+⚡ Quick Actions
+
+</div>
+
+<div id="quickActionsBody">
+  
 Add Income
 </button>
 
@@ -602,6 +668,8 @@ Add Bill
   
 </div>
 
+</div>
+  
 <div class="section">
 
 <h2>Timeline</h2>
@@ -1422,6 +1490,28 @@ section.style.display =
 }
 
 }
+
+  function toggleQuickActions(){
+
+  let section =
+    document.getElementById(
+      "quickActionsBody"
+    );
+
+  if(
+    section.style.display === "none" ||
+    section.style.display === ""
+  ){
+
+    section.style.display = "block";
+
+  }else{
+
+    section.style.display = "none";
+
+  }
+
+}
   
   function renderMonthlySummary(){
 
@@ -1530,7 +1620,7 @@ card.innerHTML =
 detailId +
 "\")'>" +
 
-month +
+"📅 " + month +
 
 "</div><br>" +
 
@@ -1539,13 +1629,22 @@ income.toFixed(0) +
 
 "<br>" +
 
-"⏳ Due: " +
-due +
+  "<br>" +
+
+"🧾 Bills: $" +
+bills.toFixed(0) +
 
 "<br>" +
 
-"✅ Paid: " +
+"⏳ Due Bills: " +
+due +
+" remaining" +
+
+"<br>" +
+
+"✅ Paid Bills: " +
 paid +
+" completed" +
 
 "<br>" +
 
