@@ -1520,10 +1520,15 @@ section.style.display =
 
 }
 
-  function toggleLedger(){
-  ...
+function toggleLedger(){
+  let body = document.getElementById("ledgerBody");
+  if(body.style.display === "none" || body.style.display === ""){
+    body.style.display = "block";
+  } else {
+    body.style.display = "none";
+  }
 }
-
+  
 function renderComingUp(){
 
   let container =
