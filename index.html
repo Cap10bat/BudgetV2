@@ -1417,34 +1417,84 @@ saveData();
 // Auto-fill November and December from October items if missing
 function autoFillFutureMonths() {
   if (!budgetData || !budgetData.timeline) return;
-  
-  const octItems = budgetData.timeline.filter(item => item.month === "October 2026");
-  
+
+  // 1. Fill missing standard bills for Nov & Dec 2026 from Oct baseline
+  const octBills = budgetData.timeline.filter(
+    item => item.month === "October 2026" && item.type === "expense"
+  );
+
   ["November 2026", "December 2026"].forEach(targetMonth => {
+    const monthNum = targetMonth.startsWith("Nov") ? "11" : "12";
     const existing = budgetData.timeline.filter(item => item.month === targetMonth);
-    
-    // If November/December are missing items compared to October, populate them
-    if (existing.length < octItems.length) {
-      octItems.forEach(item => {
-        const alreadyExists = existing.some(e => e.desc === item.desc);
-        if (!alreadyExists) {
-          const monthNum = targetMonth.startsWith("Nov") ? "11" : "12";
-          const day = item.date ? item.date.split("-")[2] : "15";
-          
-          budgetData.timeline.push({
-            ...item,
-            id: Date.now() + Math.floor(Math.random() * 1000),
-            month: targetMonth,
-            date: `2026-${monthNum}-${day}`,
-            paid: false
-          });
-        }
+
+    octBills.forEach(bill => {
+      const exists = existing.some(e => e.desc === bill.desc);
+      if (!exists) {
+        const day = bill.date ? bill.date.split("-")[2] : "15";
+        budgetData.timeline.push({
+          ...bill,
+          id: Date.now() + Math.floor(Math.random() * 10000),
+          month: targetMonth,
+          date: `2026-${monthNum}-${day}`,
+          paid: false
+        });
+      }
+    });
+  });
+
+  // 2. Ensure Stephen's biweekly paychecks exist (Nov 6, Nov 20, Dec 4, Dec 18)
+  const stephenPayDates = [
+    { month: "November 2026", date: "2026-11-06" },
+    { month: "November 2026", date: "2026-11-20" },
+    { month: "December 2026", date: "2026-12-04" },
+    { month: "December 2026", date: "2026-12-18" }
+  ];
+
+  stephenPayDates.forEach(pay => {
+    const exists = budgetData.timeline.some(
+      item => item.desc === "Stephen Paycheck" && item.date === pay.date
+    );
+    if (!exists) {
+      budgetData.timeline.push({
+        id: Date.now() + Math.floor(Math.random() * 10000),
+        month: pay.month,
+        date: pay.date,
+        desc: "Stephen Paycheck",
+        amount: 1364,
+        account: "stephen",
+        type: "income",
+        paid: false
+      });
+    }
+  });
+
+  // 3. Ensure Boo's paychecks exist on the 10th and 25th
+  const booPayDates = [
+    { month: "November 2026", date: "2026-11-10" },
+    { month: "November 2026", date: "2026-11-25" },
+    { month: "December 2026", date: "2026-12-10" },
+    { month: "December 2026", date: "2026-12-25" }
+  ];
+
+  booPayDates.forEach(pay => {
+    const exists = budgetData.timeline.some(
+      item => item.desc === "Boo Paycheck" && item.date === pay.date
+    );
+    if (!exists) {
+      budgetData.timeline.push({
+        id: Date.now() + Math.floor(Math.random() * 10000),
+        month: pay.month,
+        date: pay.date,
+        desc: "Boo Paycheck",
+        amount: 3000,
+        account: "boo",
+        type: "income",
+        paid: false
       });
     }
   });
 }
 
-// Run the auto-fill logic automatically
 autoFillFutureMonths();
   
   
