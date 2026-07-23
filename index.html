@@ -384,7 +384,7 @@ $0.00
 </div>
 
 <div class="card">
-<div class="card-title">Year Remaining</div>
+<div class="card-title">Remaining Bills</div>
 <div id="yearRemaining" class="card-value">$0.00</div>
 </div>
 
@@ -1853,7 +1853,7 @@ function renderComingUp(){
         new Date(a.date) -
         new Date(b.date)
       )
-      .slice(0,5);
+      .slice(0,10);
 
   let html =
     '<div class="coming-up">' +
@@ -1878,21 +1878,22 @@ else if(
   net -= item.amount;
 }
 
-    html +=
-      item.date +
-      " - " +
-      item.desc +
-      " (" +
-      sign +
-      "$" +
-      item.amount +
-      ")" +
-      "<br>";
+   html +=
+  (item.type === "income" ? "🟢 " : "🔴 ") +
+  item.date +
+  " | " +
+  item.desc +
+  " (" +
+  sign +
+  "$" +
+  item.amount +
+  ")" +
+  "<br>";
 
   });
 
   html +=
-    "<br><b>Net Upcoming: $" +
+    "<hr><b>Net Impact: $" +
     net.toFixed(0) +
     "</b>";
 
@@ -3254,7 +3255,7 @@ Use this to answer:
 All unpaid obligations remaining this month.
 </p>
 
-<p><b>Year Remaining</b><br>
+<p><b>Remaining Bills</b><br>
 All unpaid obligations currently loaded into the timeline.
 </p>
 
