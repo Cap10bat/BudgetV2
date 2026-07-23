@@ -684,10 +684,10 @@ Add Bill
 <div class="month-header"
      onclick="toggleLedger()">
 
-📒 Ledger ▼
+📒 Ledger ▶
 
 </div>
-  <div id="ledgerBody">
+  <div id="ledgerBody" style="display:none">
     
 <div id="timelineContainer">
 </div>
@@ -848,8 +848,6 @@ function handleImport(event){
 
 }
   
-</script><script>
-
 if(
 budgetData.timeline.length === 0
 ){
