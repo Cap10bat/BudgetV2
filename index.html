@@ -1931,9 +1931,19 @@ else if(
   net -= item.amount;
 }
 
-   html +=
+  let displayDate =
+  new Date(item.date)
+  .toLocaleDateString(
+    "en-US",
+    {
+      month:"short",
+      day:"numeric"
+    }
+  );
+
+html +=
   (item.type === "income" ? "🟢 " : "🔴 ") +
-  item.date +
+  displayDate +
   " | " +
   item.desc +
   " (" +
