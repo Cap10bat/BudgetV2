@@ -1707,16 +1707,31 @@ function renderMonthlySummary(){
       };
     }
 
-    if (item.type === "income") {
-      months[item.month].income += Number(item.amount || 0);
-    } else if (item.type === "expense") {
-      months[item.month].bills += Number(item.amount || 0);
-      if (item.paid) {
-        months[item.month].paid++;
-      } else {
-        months[item.month].due++;
-      }
-    }
+   if(item.type === "income"){
+
+  months[item.month].income +=
+    Number(item.amount || 0);
+
+}
+else if(
+  item.type === "expense" ||
+  item.type === "goal"
+){
+
+  months[item.month].bills +=
+    Number(item.amount || 0);
+
+  if(item.paid){
+
+    months[item.month].paid++;
+
+  }else{
+
+    months[item.month].due++;
+
+  }
+
+}
   });
 
   // Render HTML loop continues below...
