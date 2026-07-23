@@ -700,16 +700,11 @@ oweBoo:0,
 
 schoolSaved:0,
 
-cruiseSaved:0,
-
 christmasSaved:0,
 
 emergencySaved:0,
-
   
 schoolGoal:1000,
-
-cruiseGoal:800,
 
 christmasGoal:1500,
 
@@ -738,10 +733,6 @@ savedData
 
   if(!budgetData.schoolGoal){
 budgetData.schoolGoal = 1000;
-}
-
-if(!budgetData.cruiseGoal){
-budgetData.cruiseGoal = 800;
 }
 
 if(!budgetData.christmasGoal){
@@ -2483,34 +2474,6 @@ budgetData.schoolGoal -
 budgetData.schoolSaved
 ).toFixed(2);
 
-
-
-let cruiseProgress =
-(
-budgetData.cruiseSaved /
-budgetData.cruiseGoal
-) * 100;
-
-if(cruiseProgress > 100){
-cruiseProgress = 100;
-}
-
-document.getElementById(
-"cruiseProgress"
-).style.width =
-cruiseProgress + "%";
-
-document.getElementById(
-"cruiseRemaining"
-).innerText =
-"$" +
-(
-budgetData.cruiseGoal -
-budgetData.cruiseSaved
-).toFixed(2);
-
-
-
 let christmasProgress =
 (
 budgetData.christmasSaved /
@@ -3101,13 +3064,6 @@ document.getElementById(
 ).value
 ) || 0;
 
-budgetData.cruiseSaved =
-parseFloat(
-document.getElementById(
-"cruiseSaved"
-).value
-) || 0;
-
 budgetData.christmasSaved =
 parseFloat(
 document.getElementById(
@@ -3281,7 +3237,7 @@ Use Reconciliation whenever you verify actual bank balances.
 <h3>Goals</h3>
 
 <p>
-Track School Supplies, Cruise, Christmas and Emergency savings progress.
+Track School Supplies, Christmas and Emergency savings progress.
 </p>
 
 <h3>Recommended Workflow</h3>
