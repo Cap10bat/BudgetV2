@@ -336,11 +336,6 @@ background:#f8f9fa;
 ❓ Help
 </button>
 
-  
-<button onclick="exportBackup()">
-💾 Export Backup
-</button>
-
 <button onclick="exportBudget()">
 📤 Export Budget
 </button>
@@ -1725,6 +1720,64 @@ return "expense";
 
 }
 
+function toggleGoals(){
+
+  let body =
+    document.getElementById(
+      "goalsBody"
+    );
+
+  let header =
+    document.querySelector(
+      'h2[onclick="toggleGoals()"]'
+    );
+
+  if(
+    body.style.display === "none" ||
+    body.style.display === ""
+  ){
+
+    body.style.display = "block";
+    header.innerHTML = "▼ Goals";
+
+  }else{
+
+    body.style.display = "none";
+    header.innerHTML = "▶ Goals";
+
+  }
+
+}
+  
+function toggleReconciliation(){
+
+  let body =
+    document.getElementById(
+      "reconciliationBody"
+    );
+
+  let header =
+    document.querySelector(
+      'h2[onclick="toggleReconciliation()"]'
+    );
+
+  if(
+    body.style.display === "none" ||
+    body.style.display === ""
+  ){
+
+    body.style.display = "block";
+    header.innerHTML = "▼ Reconciliation";
+
+  }else{
+
+    body.style.display = "none";
+    header.innerHTML = "▶ Reconciliation";
+
+  }
+
+}
+  
 function toggleMonth(monthId){
 
 let section =
