@@ -1685,27 +1685,20 @@ function renderComingUp(){
 }
 
 function renderMonthlySummary(){
+  let container = document.getElementById("monthlySummary");
+  container.innerHTML = "";
 
-let container =
-document.getElementById(
-"monthlySummary"
-);
+  let months = {};
 
-container.innerHTML = "";
-
-let months = {};
-
-budgetData.timeline
-.forEach(item=>{
-
-if(!months[item.month]){
-
-months[item.month] = {
-income:0,
-bills:0,
-due:0,
-paid:0
-};
+  budgetData.timeline.forEach(item => {
+    if (!months[item.month]) {
+      months[item.month] = {
+        income: 0,
+        bills: 0,
+        due: 0,
+        paid: 0
+      };
+    }
 
     if (item.type === "income") {
       months[item.month].income += Number(item.amount || 0);
@@ -1718,6 +1711,10 @@ paid:0
       }
     }
   });
+
+  // Render HTML loop continues below...
+  
+
   
 
 Object.keys(months)
