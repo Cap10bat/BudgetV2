@@ -1537,18 +1537,17 @@ paid:false
   type:"expense",
   paid:false
 },
-`
   
 {
-id:58,
-month:"December 2026",
-date:"2026-12-10",
-desc:"Car Payment",
-amount:700,
-account:"boo",
-type:"expense",
-paid:false
-}
+  id:58,
+  month:"December 2026",
+  date:"2026-12-10",
+  desc:"Car Payment",
+  amount:700,
+  account:"boo",
+  type:"expense",
+  paid:false
+},
 
 ];
 
@@ -1573,13 +1572,13 @@ function autoFillFutureMonths() {
       const exists = existing.some(e => e.desc === bill.desc);
       if (!exists) {
         const day = bill.date ? bill.date.split("-")[2] : "15";
-        budgetData.timeline.push({
-          ...bill,
-          id: Date.now() + Math.floor(Math.random() * 10000),
-          month: targetMonth,
-          date: 2026-${monthNum}-${day}`,
-          paid: false
-        });
+       budgetData.timeline.push({
+  ...bill,
+  id: Date.now() + Math.floor(Math.random() * 10000),
+  month: targetMonth,
+  date: "2026-" + monthNum + "-" + day,
+  paid: false
+});
       }
     });
   });
