@@ -652,13 +652,13 @@ Add Bill
   
 <div class="section">
 
-
+<div id="comingUpCard"></div>
   
 <h2>📅 Monthly Summary</h2>
 
 <div id="monthlySummary"></div>
 
-<div id="comingUpCard"></div>
+
 
 <br>
   
@@ -1873,21 +1873,44 @@ function renderComingUp(){
       "comingUpCard"
     );
 
- let upcoming =
+let today =
+  new Date()
+    .toISOString()
+    .slice(0,10);
+
+let futureDate =
+  new Date();
+
+futureDate.setDate(
+  futureDate.getDate() + 14
+);
+
+let future =
+  futureDate
+    .toISOString()
+    .slice(0,10);
+
+let upcoming =
   budgetData.timeline
     .filter(x =>
       !x.paid &&
-      x.type !== "transfer"
+      x.type !== "transfer" &&
+      x.date >= today &&
+      x.date <= future
     )
-      .sort((a,b)=>
-        new Date(a.date) -
-        new Date(b.date)
-      )
-      .slice(0,10);
+    .sort((a,b)=>
+      new Date(a.date) -
+      new Date(b.date)
+    );
 
-  let html =
-    '<div class="coming-up">' +
-    '<h3>📌 Coming Up</h3>';
+let html =
+  '<div class="coming-up">' +
+
+  '<div class="month-header" onclick="toggleComingUp()">' +
+  '📌 Coming Up ▶' +
+  '</div>' +
+
+  '<div id="comingUpBody" style="display:none">';
 
   let net = 0;
 
@@ -1927,7 +1950,7 @@ else if(
     net.toFixed(0) +
     "</b>";
 
-  html += "</div>";
+  html += "</div></div>";
 
   container.innerHTML = html;
 
@@ -2317,6 +2340,36 @@ body
 
 }
 
+function toggleComingUp(){
+
+  let body =
+    document.getElementById(
+      "comingUpBody"
+    );
+
+  let header =
+    body.previousElementSibling;
+
+  if(
+    body.style.display === "none"
+  ){
+
+    body.style.display = "block";
+
+    header.innerHTML =
+      "📌 Coming Up ▼";
+
+  }else{
+
+    body.style.display = "none";
+
+    header.innerHTML =
+      "📌 Coming Up ▶";
+
+  }
+
+}
+  
 function toggleItem(id){
 
 let item =
@@ -2351,10 +2404,36 @@ let total = 0;
 let income = 0;
 let bills = 0;
 
+let today =
+new Date()
+.toISOString()
+.slice(0,10);
+
+let futureDate =
+new Date();
+
+futureDate.setDate(
+futureDate.getDate() + 14
+);
+
+let future =
+futureDate
+.toISOString()
+.slice(0,10);
+
 let upcoming =
 budgetData.timeline
-.filter(x => !x.paid)
-.slice(0,10);
+
+.filter(x =>
+  !x.paid &&
+  x.date >= today &&
+  x.date <= future
+)
+
+.sort((a,b)=>
+  new Date(a.date) -
+  new Date(b.date)
+);
 
 upcoming.forEach(item=>{
 
