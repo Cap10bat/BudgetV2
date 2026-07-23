@@ -437,7 +437,7 @@ $0.00
 <div class="section">
 
 <h2 onclick="toggleReconciliation()">
-▶ Reconciliation
+🧾 Reconciliation
 </h2>
 
 <div id="reconciliationBody" style="display:none">
@@ -470,7 +470,7 @@ Update Balances
 <div class="section">
 
 <h2 onclick="toggleGoals()">
-▶ Goals
+🎯 Goals
 </h2>
 
   <div id="goalsBody" style="display:none">
@@ -536,8 +536,6 @@ class="progress-fill">
 </div>
   
 </div><div class="section">
-
-<h2>Actions</h2>
 
 <div class="month-header"
      onclick="toggleQuickActions()">
@@ -1738,12 +1736,12 @@ function toggleGoals(){
   ){
 
     body.style.display = "block";
-    header.innerHTML = "▼ Goals";
+   header.innerHTML = "🎯 Goals ▼";
 
   }else{
 
     body.style.display = "none";
-    header.innerHTML = "▶ Goals";
+    header.innerHTML = "🎯 Goals ▶";
 
   }
 
@@ -1767,12 +1765,12 @@ function toggleReconciliation(){
   ){
 
     body.style.display = "block";
-    header.innerHTML = "▼ Reconciliation";
+    header.innerHTML = "🧾 Reconciliation ▼";
 
   }else{
 
     body.style.display = "none";
-    header.innerHTML = "▶ Reconciliation";
+    header.innerHTML = "🧾 Reconciliation ▶";
 
   }
 
