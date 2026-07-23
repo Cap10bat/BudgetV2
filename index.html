@@ -1632,9 +1632,12 @@ function renderComingUp(){
       "comingUpCard"
     );
 
-  let upcoming =
-    budgetData.timeline
-      .filter(x => !x.paid)
+ let upcoming =
+  budgetData.timeline
+    .filter(x =>
+      !x.paid &&
+      x.type !== "transfer"
+    )
       .sort((a,b)=>
         new Date(a.date) -
         new Date(b.date)
@@ -1655,10 +1658,14 @@ function renderComingUp(){
       : "-";
 
     if(item.type === "income"){
-      net += item.amount;
-    }else{
-      net -= item.amount;
-    }
+  net += item.amount;
+}
+else if(
+  item.type === "expense" ||
+  item.type === "goal"
+){
+  net -= item.amount;
+}
 
     html +=
       item.date +
