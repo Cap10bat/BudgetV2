@@ -1551,9 +1551,67 @@ paid:false
 
 ];
 
-saveData();
+[
+  {
+    desc:"Groceries",
+    amount:250,
+    account:"boo",
+    day:"15"
+  },
+  {
+    desc:"Gas Budget",
+    amount:240,
+    account:"me",
+    day:"15"
+  },
+  {
+    desc:"Netflix",
+    amount:27,
+    account:"boo",
+    day:"23"
+  }
+].forEach(bill=>{
 
-}
+  ["August","September","October","November","December"]
+    .forEach((monthName,index)=>{
+
+      let monthNum =
+        String(index + 8)
+          .padStart(2,"0");
+
+      let date =
+        "2026-" +
+        monthNum +
+        "-" +
+        bill.day;
+
+      let exists =
+        budgetData.timeline.some(
+          x =>
+            x.desc === bill.desc &&
+            x.date === date
+        );
+
+      if(!exists){
+
+        budgetData.timeline.push({
+          id: Date.now() + Math.floor(Math.random()*10000),
+          month: monthName + " 2026",
+          date: date,
+          desc: bill.desc,
+          amount: bill.amount,
+          account: bill.account,
+          type:"expense",
+          paid:false
+        });
+
+      }
+
+    });
+
+});
+  
+saveData();
 
 // Clean auto-fill function to prevent duplicates and handle biweekly schedule
 function autoFillFutureMonths() {
