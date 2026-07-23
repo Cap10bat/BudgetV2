@@ -1577,7 +1577,7 @@ function autoFillFutureMonths() {
           ...bill,
           id: Date.now() + Math.floor(Math.random() * 10000),
           month: targetMonth,
-          date: `2026-${monthNum}-${day}`,
+          date: 2026-${monthNum}-${day}`,
           paid: false
         });
       }
@@ -2176,8 +2176,8 @@ let row =
 document.createElement("div");
 
 row.className =
-"timeline-item " +
-getTypeClass(item.type);
+  "timeline-item " +
+  getTypeClass(item.type);
 
 row.innerHTML = `
 
