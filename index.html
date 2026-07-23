@@ -1414,11 +1414,11 @@ saveData();
 
 }
 
-// Auto-fill November and December from October items if missing
+// Auto-fill missing expenses and biweekly paychecks for July - Dec 2026
 function autoFillFutureMonths() {
   if (!budgetData || !budgetData.timeline) return;
 
-  // 1. Fill missing standard bills for Nov & Dec 2026 from Oct baseline
+  // 1. Fill missing standard expenses for Nov & Dec from Oct baseline
   const octBills = budgetData.timeline.filter(
     item => item.month === "October 2026" && item.type === "expense"
   );
@@ -1442,15 +1442,24 @@ function autoFillFutureMonths() {
     });
   });
 
-  // 2. Ensure Stephen's biweekly paychecks exist (Nov 6, Nov 20, Dec 4, Dec 18)
-  const stephenPayDates = [
+  // 2. All exact biweekly paydates for Stephen from July to December 2026
+  const allStephenPayDates = [
+    { month: "July 2026", date: "2026-07-03" },
+    { month: "July 2026", date: "2026-07-17" },
+    { month: "July 2026", date: "2026-07-31" },
+    { month: "August 2026", date: "2026-08-14" },
+    { month: "August 2026", date: "2026-08-28" },
+    { month: "September 2026", date: "2026-09-11" },
+    { month: "September 2026", date: "2026-09-25" },
+    { month: "October 2026", date: "2026-10-09" },
+    { month: "October 2026", date: "2026-10-23" },
     { month: "November 2026", date: "2026-11-06" },
     { month: "November 2026", date: "2026-11-20" },
     { month: "December 2026", date: "2026-12-04" },
     { month: "December 2026", date: "2026-12-18" }
   ];
 
-  stephenPayDates.forEach(pay => {
+  allStephenPayDates.forEach(pay => {
     const exists = budgetData.timeline.some(
       item => item.desc === "Stephen Paycheck" && item.date === pay.date
     );
@@ -1468,7 +1477,7 @@ function autoFillFutureMonths() {
     }
   });
 
-  // 3. Ensure Boo's paychecks exist on the 10th and 25th
+  // 3. Ensure Boo's paychecks exist on the 10th and 25th for Nov & Dec
   const booPayDates = [
     { month: "November 2026", date: "2026-11-10" },
     { month: "November 2026", date: "2026-11-25" },
@@ -1496,6 +1505,7 @@ function autoFillFutureMonths() {
 }
 
 autoFillFutureMonths();
+  
   
   
 function getTypeClass(type){
