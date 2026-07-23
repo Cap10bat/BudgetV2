@@ -353,7 +353,7 @@ background:#f8f9fa;
 <div class="card">
 
 <div class="card-title">
-Available Cash
+  Available To Spend
 </div>
 
 <div
@@ -2704,31 +2704,43 @@ yearRemaining.toFixed(2);
 let incomeComing = 0;
 let billsDue = 0;
 
-let upcoming =
+let nextIncome =
+
 budgetData.timeline
-.filter(x => !x.paid)
-.slice(0,10);
 
-upcoming.forEach(item=>{
+.filter(x =>
+  !x.paid &&
+  x.type === "income"
+)
 
-if(item.type === "income"){
+.sort((a,b)=>
+  new Date(a.date) -
+  new Date(b.date)
+)[0];
 
-incomeComing += item.amount;
+let billsDue = 0;
+
+if(nextIncome){
+
+  budgetData.timeline.forEach(item=>{
+
+    if(
+      !item.paid &&
+      item.type === "expense" &&
+      new Date(item.date) <=
+      new Date(nextIncome.date)
+    ){
+
+      billsDue += item.amount;
+
+    }
+
+  });
 
 }
-else if(
-item.type !== "transfer"
-){
-
-billsDue += item.amount;
-
-}
-
-});
 
 let availableCash =
-combinedCash +
-incomeComing -
+combinedCash -
 billsDue;
 
 document.getElementById(
