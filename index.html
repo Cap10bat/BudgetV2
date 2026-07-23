@@ -1457,18 +1457,19 @@ function autoFillFutureMonths() {
   });
 
   // 3. Re-insert exact biweekly paychecks starting after July 31
-  const stephenPayDates = [
-    { month: "August 2026", date: "2026-08-14" },
-    { month: "August 2026", date: "2026-08-28" },
-    { month: "September 2026", date: "2026-09-11" },
-    { month: "September 2026", date: "2026-09-25" },
-    { month: "October 2026", date: "2026-10-09" },
-    { month: "October 2026", date: "2026-10-23" },
-    { month: "November 2026", date: "2026-11-06" },
-    { month: "November 2026", date: "2026-11-20" },
-    { month: "December 2026", date: "2026-12-04" },
-    { month: "December 2026", date: "2026-12-18" }
-  ];
+const stephenPayDates = [
+  { month: "August 2026", date: "2026-08-14" },
+  { month: "August 2026", date: "2026-08-28" },
+  { month: "September 2026", date: "2026-09-11" },
+  { month: "September 2026", date: "2026-09-25" },
+  { month: "October 2026", date: "2026-10-09" },
+  { month: "October 2026", date: "2026-10-23" },
+  { month: "November 2026", date: "2026-11-06" },
+  { month: "November 2026", date: "2026-11-20" },
+  { month: "December 2026", date: "2026-12-04" },
+  { month: "December 2026", date: "2026-12-18" },
+  { month: "December 2026", date: "2026-12-31" }
+];
 
   stephenPayDates.forEach(pay => {
     budgetData.timeline.push({
