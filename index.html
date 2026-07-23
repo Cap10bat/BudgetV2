@@ -1414,6 +1414,40 @@ saveData();
 
 }
 
+// Auto-fill November and December from October items if missing
+function autoFillFutureMonths() {
+  if (!budgetData || !budgetData.timeline) return;
+  
+  const octItems = budgetData.timeline.filter(item => item.month === "October 2026");
+  
+  ["November 2026", "December 2026"].forEach(targetMonth => {
+    const existing = budgetData.timeline.filter(item => item.month === targetMonth);
+    
+    // If November/December are missing items compared to October, populate them
+    if (existing.length < octItems.length) {
+      octItems.forEach(item => {
+        const alreadyExists = existing.some(e => e.desc === item.desc);
+        if (!alreadyExists) {
+          const monthNum = targetMonth.startsWith("Nov") ? "11" : "12";
+          const day = item.date ? item.date.split("-")[2] : "15";
+          
+          budgetData.timeline.push({
+            ...item,
+            id: Date.now() + Math.floor(Math.random() * 1000),
+            month: targetMonth,
+            date: `2026-${monthNum}-${day}`,
+            paid: false
+          });
+        }
+      });
+    }
+  });
+}
+
+// Run the auto-fill logic automatically
+autoFillFutureMonths();
+  
+  
 function getTypeClass(type){
 
 if(type==="income"){
