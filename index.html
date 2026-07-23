@@ -341,6 +341,14 @@ background:#f8f9fa;
 💾 Export Backup
 </button>
 
+<button onclick="exportBudget()">
+📤 Export Budget
+</button>
+
+<button onclick="importBudget()">
+📥 Import Budget
+</button>
+  
 <div class="dashboard">
 
 <div class="card">
@@ -682,13 +690,18 @@ Add Bill
   <div id="ledgerBody">
     
 <div id="timelineContainer">
+</div>
 
 </div>
 
-</div>  
+<input
+  type="file"
+  id="importFile"
+  style="display:none"
+  onchange="handleImport(event)">
 
 <script>
-
+  
 let budgetData = {
 
 booBalance:1700,
@@ -762,6 +775,79 @@ budgetData
 
 }
 
+function exportBudget(){
+
+  let data =
+    JSON.stringify(
+      budgetData,
+      null,
+      2
+    );
+
+  let blob =
+    new Blob(
+      [data],
+      {
+        type:"application/json"
+      }
+    );
+
+  let a =
+    document.createElement("a");
+
+  a.href =
+    URL.createObjectURL(blob);
+
+  a.download =
+    "budget-sync.json";
+
+  a.click();
+
+}
+
+function importBudget(){
+
+  document
+    .getElementById(
+      "importFile"
+    )
+    .click();
+
+}
+
+function handleImport(event){
+
+  let file =
+    event.target.files[0];
+
+  if(!file){
+    return;
+  }
+
+  let reader =
+    new FileReader();
+
+  reader.onload =
+    function(e){
+
+      budgetData =
+        JSON.parse(
+          e.target.result
+        );
+
+      saveData();
+      refreshDashboard();
+
+      alert(
+        "Budget imported successfully."
+      );
+
+    };
+
+  reader.readAsText(file);
+
+}
+  
 </script><script>
 
 if(
