@@ -68,9 +68,10 @@ margin-bottom:15px;
 
 .card{
 background:white;
-border-radius:10px;
+border:1px solid var(--border);
+border-radius:12px;
 padding:10px;
-box-shadow:0 2px 6px rgba(0,0,0,.08);
+box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
 .card-title{
@@ -247,6 +248,11 @@ border-left:8px solid #dc3545;
 .month-card:hover{
   transform:translateY(-2px);
 }
+
+.card-green{
+  background:#ecfdf5;
+  border:1px solid #bbf7d0;
+}
   
  .summary-grid{
 display:flex;
@@ -358,7 +364,7 @@ background:#f8f9fa;
 <div class="card-title">Boo Balance</div>
 <div id="booBalance" class="card-value green">$1700.00</div>
 </div>
-<div class="card">
+<div class="card card-green">
 
 <div class="card-title">
   Available To Spend
