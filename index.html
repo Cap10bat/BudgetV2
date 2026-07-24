@@ -62,7 +62,7 @@ color:var(--primary);
 .dashboard{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:12px;
+gap:15px;
 margin-bottom:15px;
 }
 
@@ -72,8 +72,13 @@ border:1px solid var(--border);
 border-radius:12px;
 padding:10px;
 box-shadow:0 4px 12px rgba(0,0,0,.08);
+transition:.2s;
 }
 
+.card:hover{
+  transform:translateY(-2px);
+}
+  
 .card-title{
 font-size:13px;
 font-weight:bold;
@@ -254,6 +259,21 @@ border-left:8px solid #dc3545;
   border:1px solid #bbf7d0;
 }
   
+.card-red{
+  background:#fef2f2;
+  border:1px solid #fecaca;
+}
+
+.card-blue{
+  background:#eff6ff;
+  border:1px solid #bfdbfe;
+}
+
+.card-gold{
+  background:#fffbeb;
+  border:1px solid #fde68a;
+}
+
  .summary-grid{
 display:flex;
 gap:10px;
@@ -378,7 +398,7 @@ $0.00
 
 </div>
 
-<div class="card">
+<div class="card card-red">
 
   <div class="card-title">
     Due Before Income
@@ -397,12 +417,12 @@ $0.00
 <div id="meBalance" class="card-value red">-$120.00</div>
 </div>
 
-<div class="card">
+<div class="card card-blue">
 <div class="card-title">Combined Cash</div>
 <div id="combinedBalance" class="card-value">$1580.00</div>
 </div>
 
-<div class="card">
+<div class="card card-gold">
 <div class="card-title">This Month Remaining</div>
 <div id="monthRemaining" class="card-value">$0.00</div>
 </div>
